@@ -167,9 +167,10 @@ public class AlumnosDAO {
         return user;
     }
 
-    public void delUser(Alumno a) {
+    public int delUser(Alumno a) {
         DBConnection db = new DBConnection();
         Connection con = null;
+        int filas=0;
         try {
             con = db.getConnection();
             String sql = "DELETE FROM ALUMNOS WHERE ID = ?";
@@ -177,17 +178,20 @@ public class AlumnosDAO {
             
             stmt.setLong(1, a.getId());
             
-            stmt.executeUpdate();
+            filas = stmt.executeUpdate();
+            
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             db.cerrarConexion(con);
         }
+        return filas;
     }
 
-    public void updateUser(Alumno a) {
+    public int updateUser(Alumno a) {
         DBConnection db = new DBConnection();
         Connection con = null;
+        int filas=0;
         try {
             con = db.getConnection();
             String sql = "UPDATE ALUMNOS SET NOMBRE = ?, FECHA_NACIMIENTO = ?, MAYOR_EDAD = ? WHERE ID = ?";
@@ -198,12 +202,13 @@ public class AlumnosDAO {
             stmt.setBoolean(3, a.getMayor_edad());
             stmt.setLong(4, a.getId());
 
-            int filas = stmt.executeUpdate();
+            filas = stmt.executeUpdate();
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             db.cerrarConexion(con);
         }
+        return filas;
     }
 
     public int cambiarPassUser(String codigo, String password) {

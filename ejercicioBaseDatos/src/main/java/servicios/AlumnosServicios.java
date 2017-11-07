@@ -34,14 +34,14 @@ public class AlumnosServicios {
         return dao.insertAlumnoJDBC(alumnoNuevo);
     }
 
-    public void updateAlumno(Alumno alumnoNuevo) {
+    public int updateAlumno(Alumno alumnoNuevo) {
         AlumnosDAO dao = new AlumnosDAO();
-        dao.updateUser(alumnoNuevo);
+        return dao.updateUser(alumnoNuevo);
     }
     
-    public void delAlumno(Alumno alumnoNuevo){
+    public int delAlumno(Alumno alumnoNuevo){
         AlumnosDAO dao = new AlumnosDAO();
-        dao.delUser(alumnoNuevo);
+        return dao.delUser(alumnoNuevo);
     }
 
 }

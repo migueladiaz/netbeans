@@ -53,18 +53,34 @@ public class Alumnos extends HttpServlet {
             a.setNombre(nombre);
             a.setFecha_nacimiento(Date.from(fechaNacimiento.atStartOfDay().toInstant(ZoneOffset.UTC)));
             a.setMayor_edad(mayor);
-
+            int filas=0;
+                    
             switch (op) {
                 case "actualizar":
                     a.setId(Long.parseLong(request.getParameter("idalumno")));
-                    as.updateAlumno(a);
+                    filas = as.updateAlumno(a);
+                    if(filas==0){
+                        request.setAttribute("mensaje", "Error al actualizar");
+                    }else{
+                        request.setAttribute("mensaje", filas+" filas actualizadas");
+                    }
                     break;
                 case "insertar":
                     a = as.addAlumno(a);
+                    if(a!=null){
+                        request.setAttribute("mensaje", "1 fila insertada");
+                    }else{
+                        request.setAttribute("mensaje", "Error al insertar");
+                    }
                     break;
                 case "borrar":
                     a.setId(Long.parseLong(request.getParameter("idalumno")));
-                    as.delAlumno(a);
+                    filas = as.delAlumno(a);
+                    if(filas==0){
+                        request.setAttribute("mensaje", "Error al borrar");
+                    }else{
+                        request.setAttribute("mensaje", filas+" filas borradas");
+                    }
                     break;
             }
         }

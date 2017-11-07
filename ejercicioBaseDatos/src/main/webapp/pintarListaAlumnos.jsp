@@ -39,32 +39,23 @@
     </head>
     <body>
         <h1>ALUMNOS</h1>
+        <h3><c:out value="${mensaje}"></c:out></h3>
         <table border="1">
             <c:forEach items="${alumnos}" var="alumno">  
                 <tr>
                     <td>
                         <input type="button" value="Cargar ${alumno.id}" 
                                onclick="cargarAlumno('${alumno.id}', '${alumno.nombre}'
-                                   , '<fmt:formatDate value="${alumno.fecha_nacimiento}" pattern="dd-MM-yyyy"/>'
-                                   , ${alumno.mayor_edad});"/>
+                                               , '<fmt:formatDate value="${alumno.fecha_nacimiento}" pattern="dd-MM-yyyy"/>'
+                                               , ${alumno.mayor_edad});"/>
                     </td> 
-                    <td>
-                        ${alumno.nombre}
-                    </td>
-
-                    <td>
-                        <fmt:formatDate value="${alumno.fecha_nacimiento}" pattern="dd-MM-yyyy"/>
-                    </td>
-
-                    <td>
-                        <input type="checkbox" <c:if test="${alumno.mayor_edad}" >checked</c:if> />
-                        </td>
-                    </tr>
-
-
-            </c:forEach> 
-
+                    <td>${alumno.nombre}</td>
+                    <td><fmt:formatDate value="${alumno.fecha_nacimiento}" pattern="dd-MM-yyyy"/></td>
+                    <td><input type="checkbox" <c:if test="${alumno.mayor_edad}" >checked</c:if> /></td>
+                </tr>
+            </c:forEach>                   
         </table>
+
         <br>
         <form id="formulario" action = "alumnos" method="GET">
             <input type="hidden" id="idalumno" name="idalumno" />
@@ -74,7 +65,7 @@
             <input type="hidden" id="accion" name="accion" value="">
             <br>
             <br>
-            <button id="actualizar" onclick="actualizarAccion();" value="actualizar" disabled>Actualizar</button>
+            <button id="actualizar" onclick="actualizarAccion()" disabled>Actualizar</button>
             <button id="insertar" onclick="insertarAccion()">Insertar</button>
             <button id="borrar" onclick="borrarAccion()" disabled>Borrar</button>
         </form>
