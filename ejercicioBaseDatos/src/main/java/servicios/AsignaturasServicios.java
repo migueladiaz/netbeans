@@ -24,13 +24,13 @@ public class AsignaturasServicios {
         AsignaturasDAO dao = new AsignaturasDAO();
         return dao.updateAsignatura(a);
     }
-    
-    public Asignatura addAsignatura(Asignatura a){
+
+    public Asignatura addAsignatura(Asignatura a) {
         AsignaturasDAO dao = new AsignaturasDAO();
         return dao.addAsignatura(a);
     }
-    
-    public int delAsignatura(Asignatura a){
+
+    public int delAsignatura(Asignatura a) {
         AsignaturasDAO dao = new AsignaturasDAO();
         return dao.delAsignatura(a);
     }

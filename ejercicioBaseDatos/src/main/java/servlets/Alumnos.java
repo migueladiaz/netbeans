@@ -53,8 +53,8 @@ public class Alumnos extends HttpServlet {
             a.setNombre(nombre);
             a.setFecha_nacimiento(Date.from(fechaNacimiento.atStartOfDay().toInstant(ZoneOffset.UTC)));
             a.setMayor_edad(mayor);
-            int filas=0;
-                    
+            int filas = 0;
+
             switch (op) {
                 case "actualizar":
                     a.setId(Long.parseLong(request.getParameter("idalumno")));
@@ -62,7 +62,7 @@ public class Alumnos extends HttpServlet {
                     break;
                 case "insertar":
                     a = as.addAlumno(a);
-                    if(a != null){
+                    if (a != null) {
                         filas = 1;
                     }
                     break;
@@ -71,9 +71,9 @@ public class Alumnos extends HttpServlet {
                     filas = as.delAlumno(a);
                     break;
             }
-            if(filas != 0){
-                request.setAttribute("mensaje", filas+" filas modificadas correctamente");
-            }else{
+            if (filas != 0) {
+                request.setAttribute("mensaje", filas + " filas modificadas correctamente");
+            } else {
                 request.setAttribute("mensaje", "No se han hecho modificaciones");
             }
         }

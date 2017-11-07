@@ -57,8 +57,8 @@ public class AsignaturasDAO {
         }
         return filas;
     }
-    
-    public Asignatura addAsignatura(Asignatura a){
+
+    public Asignatura addAsignatura(Asignatura a) {
         DBConnection db = new DBConnection();
         Connection con = null;
 
@@ -79,8 +79,8 @@ public class AsignaturasDAO {
         }
         return a;
     }
-    
-    public int delAsignatura(Asignatura a){
+
+    public int delAsignatura(Asignatura a) {
         DBConnection db = new DBConnection();
         Connection con = null;
         int filas = 0;

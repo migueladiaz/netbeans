@@ -51,7 +51,7 @@ public class Asignaturas extends HttpServlet {
                     break;
                 case "insertar":
                     a = as.addAsignatura(a);
-                    if(a != null){
+                    if (a != null) {
                         filas = 1;
                     }
                     break;
@@ -60,9 +60,9 @@ public class Asignaturas extends HttpServlet {
                     filas = as.delAsignatura(a);
                     break;
             }
-            if(filas != 0){
-                request.setAttribute("mensaje", filas+" filas modificadas correctamente");
-            }else{
+            if (filas != 0) {
+                request.setAttribute("mensaje", filas + " filas modificadas correctamente");
+            } else {
                 request.setAttribute("mensaje", "No se han hecho modificaciones");
             }
         }
