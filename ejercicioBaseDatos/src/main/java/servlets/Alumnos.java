@@ -59,29 +59,22 @@ public class Alumnos extends HttpServlet {
                 case "actualizar":
                     a.setId(Long.parseLong(request.getParameter("idalumno")));
                     filas = as.updateAlumno(a);
-                    if(filas==0){
-                        request.setAttribute("mensaje", "Error al actualizar");
-                    }else{
-                        request.setAttribute("mensaje", filas+" filas actualizadas");
-                    }
                     break;
                 case "insertar":
                     a = as.addAlumno(a);
-                    if(a!=null){
-                        request.setAttribute("mensaje", "1 fila insertada");
-                    }else{
-                        request.setAttribute("mensaje", "Error al insertar");
+                    if(a != null){
+                        filas = 1;
                     }
                     break;
                 case "borrar":
                     a.setId(Long.parseLong(request.getParameter("idalumno")));
                     filas = as.delAlumno(a);
-                    if(filas==0){
-                        request.setAttribute("mensaje", "Error al borrar");
-                    }else{
-                        request.setAttribute("mensaje", filas+" filas borradas");
-                    }
                     break;
+            }
+            if(filas != 0){
+                request.setAttribute("mensaje", filas+" filas modificadas correctamente");
+            }else{
+                request.setAttribute("mensaje", "No se han hecho modificaciones");
             }
         }
         // getAll siempre se hace

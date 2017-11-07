@@ -170,16 +170,16 @@ public class AlumnosDAO {
     public int delUser(Alumno a) {
         DBConnection db = new DBConnection();
         Connection con = null;
-        int filas=0;
+        int filas = 0;
         try {
             con = db.getConnection();
             String sql = "DELETE FROM ALUMNOS WHERE ID = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            
+
             stmt.setLong(1, a.getId());
-            
+
             filas = stmt.executeUpdate();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -191,7 +191,7 @@ public class AlumnosDAO {
     public int updateUser(Alumno a) {
         DBConnection db = new DBConnection();
         Connection con = null;
-        int filas=0;
+        int filas = 0;
         try {
             con = db.getConnection();
             String sql = "UPDATE ALUMNOS SET NOMBRE = ?, FECHA_NACIMIENTO = ?, MAYOR_EDAD = ? WHERE ID = ?";

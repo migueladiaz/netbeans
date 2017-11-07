@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Asignatura;
+import servicios.AsignaturasServicios;
 
 /**
  *
@@ -32,7 +33,42 @@ public class Asignaturas extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        AsignaturasServicios as = new AsignaturasServicios();
+        String op = request.getParameter("accion");
+
+        if (op != null) {
+            Asignatura a = new Asignatura();
+            a.setNombre(request.getParameter("nombre"));
+            a.setCiclo(request.getParameter("ciclo"));
+            a.setCurso(request.getParameter("curso"));
+            int filas = 0;
+
+            switch (op) {
+                case "actualizar":
+                    a.setId(Long.parseLong(request.getParameter("idasignatura")));
+                    filas = as.updateAsignatura(a);
+                    break;
+                case "insertar":
+                    a = as.addAsignatura(a);
+                    if(a != null){
+                        filas = 1;
+                    }
+                    break;
+                case "borrar":
+                    a.setId(Long.parseLong(request.getParameter("idasignatura")));
+                    filas = as.delAsignatura(a);
+                    break;
+            }
+            if(filas != 0){
+                request.setAttribute("mensaje", filas+" filas modificadas correctamente");
+            }else{
+                request.setAttribute("mensaje", "No se han hecho modificaciones");
+            }
+        }
+        // getAll siempre se hace
+        request.setAttribute("asignaturas", as.getAllAsignaturas());
+        request.getRequestDispatcher("pintarListaAsignaturas.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
