@@ -15,21 +15,34 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class EpDAO {
 
-    public final String queryComprobarPass="SELECT nombre FROM registro WHERE nombre = ? AND pass = ?";
+    public final String queryComprobarPass="SELECT pass FROM registro WHERE nombre = ?";
+    public final String queryAddUser="INSERT INTO registro (nombre, pass) VALUES (?,?)";
     
-    public boolean comprobarPass(String nombre, String pass) {
-        boolean existe = false;
+    public String getPass(String nombre) {
+        String resultado = null;
         try {
             JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
-            String resultado = jtm.queryForObject(queryComprobarPass, String.class, nombre, pass);
+            resultado = jtm.queryForObject(queryComprobarPass, String.class, nombre);
 
-            if (resultado != null) {
-                existe = true;
-            }
         } catch (Exception ex) {
             Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return existe;
+        return resultado;
+    }
+    
+    public boolean addUser(String nombre, String pass) {
+        boolean registrado = false;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            int filas = jtm.update(queryAddUser, nombre, pass);
+            if (filas > 0) {
+                registrado = true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            registrado = false;
+        }
+        return registrado;
     }
     
 }
