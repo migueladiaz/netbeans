@@ -1,0 +1,65 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-feb-2018, 22:51:40
+    Author     : Miguel
+*/
+.jumbotron{
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+#conteLogin{
+    text-align: center;
+    width: 220px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#botonGoogle{
+    position: absolute;
+    left: 23%;
+}
+
+#conteChat{
+    display: none;
+    text-align: center;
+}
+
+#textoChat{
+    text-align: left;
+    margin: 40px auto 10px auto;
+    border-radius: 5px;
+    border: 1px solid gray;
+    box-shadow:gray 0px 0px 4px 1px;
+    height: 600px;
+    width: 100%;
+    padding: 5px;
+}
+
+#output{
+    padding: 5px;
+    margin-bottom: 5px;
+    height: 545px;
+    overflow-y: auto;
+}
+
+#myField{
+    border-radius: 5px 0px 0px 5px;
+}
+
+#myField:focus{
+    box-shadow: none;
+}
+
+#enviar{
+    border-radius: 0px 5px 5px 0px;
+}
+
+.btn:focus{
+    box-shadow: none;
+}
