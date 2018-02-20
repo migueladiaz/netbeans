@@ -17,6 +17,7 @@ public class EpDAO {
 
     public final String queryComprobarPass="SELECT pass FROM registro WHERE nombre = ?";
     public final String queryAddUser="INSERT INTO registro (nombre, pass) VALUES (?,?)";
+    public final String queryAddUserGoogle="INSERT INTO registro (nombre, pass) VALUES (?,'google')";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -35,6 +36,21 @@ public class EpDAO {
         try {
             JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
             int filas = jtm.update(queryAddUser, nombre, pass);
+            if (filas > 0) {
+                registrado = true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            registrado = false;
+        }
+        return registrado;
+    }
+    
+    public boolean addUserGoogle(String email) {
+        boolean registrado = false;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            int filas = jtm.update(queryAddUserGoogle, email);
             if (filas > 0) {
                 registrado = true;
             }

@@ -6,6 +6,7 @@
 package server;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.json.GenericJson;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,7 @@ public class WSEndpoint {
     @OnMessage
     public void echoText(String mensaje, Session sessionQueManda) {
         if (sessionQueManda.getUserProperties().get("login").equals("OK")) {
+            
             for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
                 try {
                     if (!sessionQueManda.equals(sesionesMandar)) {
@@ -69,6 +71,8 @@ public class WSEndpoint {
             try {
                 String idToken = mensaje;
                 GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+                EPServicios es = new EPServicios();
+                es.addUserGoogle(payLoad.getEmail());
                 String name = (String) payLoad.get("name");
                 sessionQueManda.getUserProperties().put("user", name);
                 sessionQueManda.getUserProperties().put("login", "OK");

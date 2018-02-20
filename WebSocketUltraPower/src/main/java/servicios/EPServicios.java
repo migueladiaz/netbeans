@@ -36,10 +36,19 @@ public class EPServicios {
                     comprobarPass = true;
                 }
             }
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(EPServicios.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return comprobarPass;
+    }
+    
+    public boolean addUserGoogle(String email){
+        EpDAO dao = new EpDAO();
+        boolean userCreado = false;
+        if(dao.getPass(email)==null){
+            userCreado = dao.addUserGoogle(email);
+        }
+        return userCreado;
     }
 }
