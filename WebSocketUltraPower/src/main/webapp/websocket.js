@@ -28,7 +28,15 @@ var output = document.getElementById("output");
 $(document).ready(function(){
     $("#chat").submit(function(event){
         event.preventDefault();
-        websocket.send(myField.value);
+        var objeto = {
+            tipo: "texto",
+            contenido: myField.value,
+            destino: "general",
+            fecha: new Date(),
+            user: nombre,
+            guardar: ""
+        };
+        websocket.send(JSON.stringify(objeto));
         writeToScreen("Tu: " + myField.value);
         myField.value="";
     });
