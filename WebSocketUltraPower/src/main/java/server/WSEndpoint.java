@@ -7,6 +7,7 @@ package server;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -71,7 +72,7 @@ public class WSEndpoint {
                 for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
 
                     if (!sessionQueManda.equals(sesionesMandar)) {
-                        sesionesMandar.getBasicRemote().sendText(sessionQueManda.getUserProperties().get("user") + ": " + mensaje);
+                        sesionesMandar.getBasicRemote().sendText(sessionQueManda.getUserProperties().get("user") + ": " + m.getMensaje());
                     }
 
                 }
