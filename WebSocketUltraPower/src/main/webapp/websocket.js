@@ -29,12 +29,11 @@ $(document).ready(function(){
     $("#chat").submit(function(event){
         event.preventDefault();
         var objeto = {
-            tipo: "texto",
-            contenido: myField.value,
-            destino: "general",
+            mensaje: myField.value,
             fecha: new Date(),
-            user: nombre,
-            guardar: ""
+            id_canal: 1,
+            nombre_user: nombre,
+            guardar: guardar.checked
         };
         websocket.send(JSON.stringify(objeto));
         writeToScreen("Tu: " + myField.value);

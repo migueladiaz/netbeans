@@ -7,6 +7,7 @@ package dao;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Mensaje;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -18,6 +19,7 @@ public class EpDAO {
     public final String queryComprobarPass="SELECT pass FROM registro WHERE nombre = ?";
     public final String queryAddUser="INSERT INTO registro (nombre, pass) VALUES (?,?)";
     public final String queryAddUserGoogle="INSERT INTO registro (nombre, pass) VALUES (?,'google')";
+    public final String queryGuardarMensaje="INSERT INTO mensajes (mensaje, fecha, id_canal, nombre_user) VALUES (?,?,?,?)";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -59,6 +61,21 @@ public class EpDAO {
             registrado = false;
         }
         return registrado;
+    }
+    
+    public boolean guardarMensaje(Mensaje m) {
+        boolean guardado = false;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            int filas = jtm.update(queryGuardarMensaje, m.getMensaje(), m.getFecha(), m.getId_canal(), m.getNombre_user());
+            if (filas > 0) {
+                guardado = true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            guardado = false;
+        }
+        return guardado;
     }
     
 }

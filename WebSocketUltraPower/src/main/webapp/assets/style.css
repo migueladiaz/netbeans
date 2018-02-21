@@ -76,3 +76,19 @@ body{
 .btn:focus{
     box-shadow: none;
 }
+
+#panel{
+    margin-top: 40px;
+}
+
+#panel table{
+    margin: auto;
+}
+
+#panel td{
+    padding: 10px 30px;
+}
+
+.tgl{
+    margin-top: 10px;
+}

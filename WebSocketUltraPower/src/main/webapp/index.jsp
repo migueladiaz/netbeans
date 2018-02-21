@@ -42,7 +42,7 @@
                 <div id="botonGoogle" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
             </div>
             <div id="conteChat">
-                
+
                 <div id="textoChat">
                     <div id="output"></div>
                     <form id="chat">
@@ -55,30 +55,40 @@
                     </form>
                 </div>
 
-                <br>
-                
-                <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
+                <div id="panel">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Guardar mensajes</span>
+                                <br>
+                                <label class="tgl">
+                                    <input id="guardar" type="checkbox"/>
+                                    <span class="tgl_body">
+                                        <span class="tgl_switch"></span>
+                                        <span class="tgl_track">
+                                            <span class="tgl_bgd"></span>
+                                            <span class="tgl_bgd tgl_bgd-negative"></span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
 
-                <script>
-                    function signOut() {
-                        var auth2 = gapi.auth2.getAuthInstance();
-                        auth2.signOut().then(function () {
-                            console.log('User signed out.');
-                        });
-                        websocket.close();
-                    }
-                </script>
+                                <script>
+                                    function signOut() {
+                                        var auth2 = gapi.auth2.getAuthInstance();
+                                        auth2.signOut().then(function () {
+                                            console.log('User signed out.');
+                                        });
+                                        websocket.close();
+                                    }
+                                </script>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <label class="tgl">
-                <input type="checkbox" checked/>
-                <span class="tgl_body">
-                    <span class="tgl_switch"></span>
-                    <span class="tgl_track">
-                        <span class="tgl_bgd"></span>
-                        <span class="tgl_bgd tgl_bgd-negative"></span>
-                    </span>
-                </span>
-            </label>
         </div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>

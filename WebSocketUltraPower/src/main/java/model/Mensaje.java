@@ -5,58 +5,49 @@
  */
 package model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author Miguel
  */
 public class Mensaje {
-    private String tipo;
-    private String contenido;
-    private String destino;
-    private LocalDate fecha;
-    private String user;
+    private String mensaje;
+    private LocalDateTime fecha;
+    private int id_canal;
+    private String nombre_user;
     private boolean guardar;
 
-    public String getTipo() {
-        return tipo;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
-    public String getUser() {
-        return user;
+    public int getId_canal() {
+        return id_canal;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setId_canal(int id_canal) {
+        this.id_canal = id_canal;
+    }
+
+    public String getNombre_user() {
+        return nombre_user;
+    }
+
+    public void setNombre_user(String nombre_user) {
+        this.nombre_user = nombre_user;
     }
 
     public boolean getGuardar() {
@@ -66,5 +57,4 @@ public class Mensaje {
     public void setGuardar(boolean guardar) {
         this.guardar = guardar;
     }
-    
 }
