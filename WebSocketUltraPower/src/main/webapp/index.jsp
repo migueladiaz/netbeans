@@ -6,15 +6,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/style.css">
-        <link rel="stylesheet" href="assets/switch.css">
+        <link rel="stylesheet" href="assets/prueba.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id"
-              content="125084952103-ggvd68hk194h03db20sgit6epeaf0m1d.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="125084952103-ggvd68hk194h03db20sgit6epeaf0m1d.apps.googleusercontent.com">
         <title>Chat</title>
     </head>
     <body>
@@ -70,6 +69,16 @@
                     }
                 </script>
             </div>
+            <label class="tgl">
+                <input type="checkbox" checked/>
+                <span class="tgl_body">
+                    <span class="tgl_switch"></span>
+                    <span class="tgl_track">
+                        <span class="tgl_bgd"></span>
+                        <span class="tgl_bgd tgl_bgd-negative"></span>
+                    </span>
+                </span>
+            </label>
         </div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>
