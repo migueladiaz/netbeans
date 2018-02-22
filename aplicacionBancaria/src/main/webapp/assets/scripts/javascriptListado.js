@@ -47,11 +47,11 @@ $(document).ready(function() {
                             $("#error").html(datos[1]);
                             $("#error").fadeIn(100);
                         }else {
-                            $("#tabla").append("<tr><th>Fecha</th><th>Descripción</th><th>Importe</th></tr>");
+                            $("#tabla").append("<tr><th>Fecha</th><th>Hora</th><th>Descripción</th><th>Importe</th><th>Saldo</th></tr>");
 
                             for (var i = 0; i < datos.length; i++) {
                                 var fecha = formatoFecha(datos[i].mo_fec);
-                                $("#tabla").append('<tr><td>' + fecha + '</td><td>' + datos[i].mo_des + '</td><td>' + datos[i].mo_imp + '€</td></tr>');
+                                $("#tabla").append('<tr><td>' + fecha + '</td><td>' + datos[i].mo_hor + '</td><td>' + datos[i].mo_des + '</td><td>' + datos[i].mo_imp + '€</td><td>' + datos[i].cu_sal + '€</td></tr>');
                             }
                         }
                     });
@@ -72,12 +72,10 @@ $(document).ready(function () {
     $("#fin").focus(function () {
         $("#errorFecha").fadeOut(100);
     });
+    
+    //No se puede hacer click en los enlaces activos
     $(".active").click(function( event ) {
         event.preventDefault();
-    });
-    $("#putaso").click(function(){
-    document.getElementById("puta").innerHTML="á tus muertos € $ ááááé";
-    alert(document.getElementById("puta").innerHTML);
     });
 });
 

@@ -1,5 +1,8 @@
+/*GENERAL*/
+
 #cuerpo{
     text-align: center;
+    position: relative;
 }
 
 .nav-item{
@@ -15,6 +18,12 @@
 #titulo{
     margin: 60px 0 40px 0;
 }
+
+.error{
+    display: none;
+}
+
+/*LISTADO DE MOVIMIENTOS*/
 
 #formularioListado{
     margin: auto;
@@ -45,10 +54,6 @@
     border-top:none;
 }
 
-.error{
-    display: none;
-}
-
 #numImporte{
     margin-left: 20px;
     width: 41px;
@@ -58,6 +63,8 @@
     margin-left: 20px;
     width: 150px;
 }
+
+/*LOGIN*/
 
 .cuerpologin{
     padding-top: 75px;
@@ -84,4 +91,48 @@
 
 #errorLogin{
     color: indianred;
+}
+
+/*ABRIR CUENTAS*/
+
+#paneles a{
+    color: lightgray;
+    cursor: default;
+    pointer-events: none;
+}
+
+#paneles a:hover{
+    border: none;
+}
+
+#paneles .active{
+    color: black;
+}
+
+#ant {
+    display:none;
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    margin-bottom: 25px;
+}
+
+#sig{
+    position: absolute;
+    bottom: 0;
+    right: 20%;
+    margin-bottom: 25px;
+}
+
+#tablaDatos{
+    margin: auto;
+    text-align: left;
+}
+
+#tablaDatos span{
+    margin-right: 10px;
+}
+
+.tab-pane{
+    height: 350px;
 }
