@@ -45,9 +45,9 @@ public class Login extends HttpServlet {
                     email = request.getParameter("email");
 
                     if (ls.comprobarEmail(email)) {
-                        response.getWriter().print("ocupado");
+                        response.getWriter().print(Constantes.OCUPADO);
                     } else {
-                        response.getWriter().print("disponible");
+                        response.getWriter().print(Constantes.DISPONIBLE);
                     }
                     break;
 

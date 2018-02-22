@@ -5,13 +5,14 @@
  */
 package servicios;
 
+import DAO.AbrirDAO;
 import DAO.ListadoDAO;
 import com.google.gson.Gson;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import utils.Constantes;
+import model.Cliente;
 
 /**
  *
@@ -36,6 +37,10 @@ public class Servicios {
         }
 
         return error;
+    }
+    
+    public boolean comprobarDni(String dni){
+        return dni.matches("^[0-9]{8}[A-Z]$");
     }
     
     public boolean comprobarFechas(String inicio, String fin){
@@ -79,5 +84,22 @@ public class Servicios {
         respuesta.add("500");
         respuesta.add(error);
         return new Gson().toJson(respuesta);
+    }
+    
+    public boolean comprobarTitularAlta(String dni){
+        AbrirDAO dao = new AbrirDAO();
+        boolean existe;
+        Cliente c = dao.getCliente(dni);
+        if(c == null){
+            existe = false;
+        } else {
+            existe = true;
+        }
+        return existe;
+    }
+    
+    public String getCliente(String dni){
+        AbrirDAO dao = new AbrirDAO();
+        return new Gson().toJson(dao.getCliente(dni));
     }
 }

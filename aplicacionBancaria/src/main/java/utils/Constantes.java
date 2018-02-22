@@ -21,6 +21,8 @@ public class Constantes {
                                             + "</html>";
     public static final String ASUNTO_EMAIL = "Registro aplicación bancaria";
     public static final String PINTAR_LOGIN = "login.jsp";
+    public static final String OCUPADO = "ocupado";
+    public static final String DISPONIBLE = "disponible";
     public static final String ERROR = "Ha ocurrido un error.";
     public static final String REGISTRO_COMPLETO = "Usuario registrado con éxito. Te hemos enviado un email para activar tu cuenta.";
     public static final String CUENTA_ACTIVADA = "Tu cuenta ha sido activada.";
@@ -31,4 +33,5 @@ public class Constantes {
     public static final String ERROR_CUENTA_NO_EXISTE = "El número de cuenta no existe";
     public static final String ERROR_CUENTA_YA_EXISTE = "El número de cuenta ya existe";
     public static final String ERROR_NO_MOVIMIENTOS = "No hay movimientos";
+    public static final String PEDIR_DATOS = "pedirDatos";
 }

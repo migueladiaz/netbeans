@@ -38,18 +38,35 @@ public class Abrir extends HttpServlet {
         
         if(accion != null){
             Servicios s = new Servicios();
-            
             String numCuenta = request.getParameter("cuenta");
+            String dni = request.getParameter("dni");
             
-            if(s.comprobarNumCuenta(numCuenta)){
-                if(!s.validarCuenta(numCuenta)){
+            switch(accion){
+                case "comprobarCuenta":
+                    if(s.comprobarNumCuenta(numCuenta)){
+                        if(!s.validarCuenta(numCuenta)){
+                            response.getWriter().write(Constantes.DISPONIBLE);
+                        } else {
+                            response.getWriter().write(s.error(Constantes.ERROR_CUENTA_YA_EXISTE));
+                        }
+                    } else {
+                        response.getWriter().write(s.error(Constantes.ERROR));
+                    }
+                    break;
                     
-                } else {
-                    response.getWriter().write(s.error(Constantes.ERROR_CUENTA_YA_EXISTE));
-                }
-            } else {
-                response.getWriter().write(s.error(Constantes.ERROR));
+                case "ComprobarTitular":
+                    if (s.comprobarDni(dni)) {
+                        if (s.comprobarTitularAlta(dni)) {
+                            response.getWriter().write(s.getCliente(dni));
+                        } else {
+                            response.getWriter().write(Constantes.PEDIR_DATOS);
+                        }
+                    } else {
+                        response.getWriter().write(s.error(Constantes.ERROR));
+                    }
+                    break;
             }
+            
         }else{
              request.getRequestDispatcher(Constantes.PINTAR_ABRIR).forward(request, response);
         }
