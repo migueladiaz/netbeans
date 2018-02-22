@@ -1,0 +1,87 @@
+#cuerpo{
+    text-align: center;
+}
+
+.nav-item{
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.active{
+    cursor: default;
+}
+
+#titulo{
+    margin: 60px 0 40px 0;
+}
+
+#formularioListado{
+    margin: auto;
+    max-width: 430px;
+    text-align: left;
+}
+
+.fecha{
+    width: 160px;
+}
+
+.errorFormulario{
+    display: none;
+    color: indianred;
+}
+
+#contTabla{
+    padding-top: 60px;
+    margin: auto;
+    font-size: 26px;
+}
+
+#contTabla table td{
+    background-color: #eee;
+}
+
+#contTabla table th{
+    border-top:none;
+}
+
+.error{
+    display: none;
+}
+
+#numImporte{
+    margin-left: 20px;
+    width: 41px;
+}
+
+#rangoImporte{
+    margin-left: 20px;
+    width: 150px;
+}
+
+.cuerpologin{
+    padding-top: 75px;
+}
+
+.cuerpologin table{
+    text-align: left;
+    margin: auto;
+}
+
+.cuerpologin table td{
+    min-width: 100px;
+    padding-bottom: 30px;
+}
+
+#divregistro{
+    margin: auto;
+    display: none;
+}
+
+#divlogin{
+    margin: auto;
+}
+
+#errorLogin{
+    color: indianred;
+}
