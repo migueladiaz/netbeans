@@ -16,7 +16,7 @@ import utils.Constantes;
 
 /**
  *
- * @author rafa
+ * @author Miguel
  */
 @WebServlet(name = "Abrir", urlPatterns = {"/banco/abrir"})
 public class Abrir extends HttpServlet {
