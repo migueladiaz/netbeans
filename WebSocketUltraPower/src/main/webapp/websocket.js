@@ -28,13 +28,14 @@ var output = document.getElementById("output");
 $(document).ready(function(){
     $("#chat").submit(function(event){
         event.preventDefault();
+        var fechaActual = new Date();
+        var fecha = fechaActual.getFullYear()+"-"+(fechaActual.getMonth()+1)+"-"+fechaActual.getDate()+" "+fechaActual.getHours()+":"+fechaActual.getMinutes()+":"+fechaActual.getSeconds();
         var objeto = {
-            tipo: "texto",
-            contenido: myField.value,
-            destino: "general",
-            fecha: new Date(),
-            user: nombre,
-            guardar: ""
+            mensaje: myField.value,
+            fecha: fecha,
+            id_canal: 1,
+            nombre_user: nombre,
+            guardar: guardar.checked
         };
         websocket.send(JSON.stringify(objeto));
         writeToScreen("Tu: " + myField.value);

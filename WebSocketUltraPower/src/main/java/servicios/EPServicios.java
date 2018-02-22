@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Mensaje;
 import utils.PasswordHash;
 
 /**
@@ -50,5 +51,10 @@ public class EPServicios {
             userCreado = dao.addUserGoogle(email);
         }
         return userCreado;
+    }
+    
+    public boolean guardarMensaje(Mensaje m){
+        EpDAO dao = new EpDAO();
+        return dao.guardarMensaje(m);
     }
 }

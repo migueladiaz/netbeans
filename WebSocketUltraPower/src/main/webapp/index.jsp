@@ -6,15 +6,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/style.css">
-        <link rel="stylesheet" href="assets/switch.css">
+        <link rel="stylesheet" href="assets/prueba.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id"
-              content="125084952103-ggvd68hk194h03db20sgit6epeaf0m1d.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="125084952103-ggvd68hk194h03db20sgit6epeaf0m1d.apps.googleusercontent.com">
         <title>Chat</title>
     </head>
     <body>
@@ -43,7 +42,7 @@
                 <div id="botonGoogle" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
             </div>
             <div id="conteChat">
-                
+
                 <div id="textoChat">
                     <div id="output"></div>
                     <form id="chat">
@@ -56,19 +55,39 @@
                     </form>
                 </div>
 
-                <br>
-                
-                <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
+                <div id="panel">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Guardar mensajes</span>
+                                <br>
+                                <label class="tgl">
+                                    <input id="guardar" type="checkbox"/>
+                                    <span class="tgl_body">
+                                        <span class="tgl_switch"></span>
+                                        <span class="tgl_track">
+                                            <span class="tgl_bgd"></span>
+                                            <span class="tgl_bgd tgl_bgd-negative"></span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
 
-                <script>
-                    function signOut() {
-                        var auth2 = gapi.auth2.getAuthInstance();
-                        auth2.signOut().then(function () {
-                            console.log('User signed out.');
-                        });
-                        websocket.close();
-                    }
-                </script>
+                                <script>
+                                    function signOut() {
+                                        var auth2 = gapi.auth2.getAuthInstance();
+                                        auth2.signOut().then(function () {
+                                            console.log('User signed out.');
+                                        });
+                                        websocket.close();
+                                    }
+                                </script>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <script language="javascript" type="text/javascript" src="websocket.js">
