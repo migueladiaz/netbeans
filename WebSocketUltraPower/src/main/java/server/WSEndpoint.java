@@ -5,9 +5,6 @@
  */
 package server;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -20,14 +17,17 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import model.Mensaje;
+import model.MessageDecoder;
+import model.MessageEncoder;
 import servicios.EPServicios;
 import servicios.IdTokenVerifierAndParser;
+import utils.Constantes;
 
 /**
  *
  * @author Miguel
  */
-@ServerEndpoint(value = "/websocket/{user}/{pass}")
+@ServerEndpoint(value = "/websocket/{user}/{pass}",decoders = MessageDecoder.class, encoders = MessageEncoder.class)
 public class WSEndpoint {
 
     @OnOpen
@@ -43,53 +43,60 @@ public class WSEndpoint {
                 if (es.comprobarPass(nombre, pass)) {
                     session.getUserProperties().put("login", "OK");
                     session.getUserProperties().put("user", nombre);
+                    Mensaje m = new Mensaje();
+                    m.setTipo("info");
+                    m.setMensaje(nombre+Constantes.MENSAJE_CONECTADO);
                     for (Session sesionesMandar : session.getOpenSessions()) {
                         if (!session.equals(sesionesMandar)) {
-                            sesionesMandar.getBasicRemote().sendText(session.getUserProperties().get("user") + " se ha conectado");
+                            sesionesMandar.getBasicRemote().sendObject(m);
                         }
                     }
                 } else {
                     session.close();
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     @OnMessage
-    public void echoText(String mensaje, Session sessionQueManda) {
+    public void echoText(Mensaje mensaje, Session sessionQueManda) {
         
         EPServicios es = new EPServicios();
         
         if (sessionQueManda.getUserProperties().get("login").equals("OK")) {
             try {
-                ObjectMapper mapper = new ObjectMapper();
-                Mensaje m = mapper.readValue(mensaje, new TypeReference<Mensaje>() {});
-                if(m.getGuardar()==true){
-                    es.guardarMensaje(m);
+                
+                if(mensaje.getGuardar()==true){
+                    es.guardarMensaje(mensaje);
                 }
+                
                 for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
 
                     if (!sessionQueManda.equals(sesionesMandar)) {
-                        sesionesMandar.getBasicRemote().sendText(sessionQueManda.getUserProperties().get("user") + ": " + m.getMensaje());
+                        sesionesMandar.getBasicRemote().sendObject(mensaje);
                     }
 
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             try {
-                String idToken = mensaje;
+                String idToken = mensaje.getMensaje();
                 GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
-                es.addUserGoogle(payLoad.getEmail());
+                if(!es.comprobarUserGoogle(payLoad.getEmail())){
+                    es.addUserGoogle(payLoad.getEmail());
+                }
                 String name = (String) payLoad.get("name");
                 sessionQueManda.getUserProperties().put("user", name);
                 sessionQueManda.getUserProperties().put("login", "OK");
+                mensaje.setTipo("info");
+                mensaje.setMensaje(name+Constantes.MENSAJE_CONECTADO);
                 for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
                     if (!sessionQueManda.equals(sesionesMandar)) {
-                        sesionesMandar.getBasicRemote().sendText(sessionQueManda.getUserProperties().get("user") + " se ha conectado");
+                        sesionesMandar.getBasicRemote().sendObject(mensaje);
                     }
                 }
             } catch (Exception ex) {
@@ -105,11 +112,16 @@ public class WSEndpoint {
 
     @OnClose
     public void onClose(Session session) {
-        for (Session s : session.getOpenSessions()) {
-            try {
-                s.getBasicRemote().sendText(session.getUserProperties().get("user").toString() + " se ha desconectado");
-            } catch (IOException ex) {
-                Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+        if(session.getUserProperties().get("user")!=null){
+            Mensaje m = new Mensaje();
+            m.setTipo("info");
+            m.setMensaje((String)session.getUserProperties().get("user")+Constantes.MENSAJE_DESCONECTADO);
+            for (Session s : session.getOpenSessions()) {
+                try {
+                    s.getBasicRemote().sendObject(m);
+                } catch (Exception ex) {
+                    Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

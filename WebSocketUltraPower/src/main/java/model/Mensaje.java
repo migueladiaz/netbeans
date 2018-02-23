@@ -5,19 +5,28 @@
  */
 package model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
  * @author Miguel
  */
 public class Mensaje {
+    private String tipo;
     private String mensaje;
-    private LocalDateTime fecha;
+    private Date fecha;
     private int id_canal;
     private String nombre_user;
     private boolean guardar;
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
     public String getMensaje() {
         return mensaje;
     }
@@ -26,11 +35,11 @@ public class Mensaje {
         this.mensaje = mensaje;
     }
 
-    public LocalDateTime getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

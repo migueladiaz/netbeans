@@ -29,10 +29,10 @@ $(document).ready(function(){
     $("#chat").submit(function(event){
         event.preventDefault();
         var fechaActual = new Date();
-        var fecha = fechaActual.getFullYear()+"-"+(fechaActual.getMonth()+1)+"-"+fechaActual.getDate()+" "+fechaActual.getHours()+":"+fechaActual.getMinutes()+":"+fechaActual.getSeconds();
         var objeto = {
+            tipo: "texto",
             mensaje: myField.value,
-            fecha: fecha,
+            fecha: fechaActual,
             id_canal: 1,
             nombre_user: nombre,
             guardar: guardar.checked
@@ -45,7 +45,10 @@ $(document).ready(function(){
 
 function onOpen() {
     if(user.value == "google"){
-        websocket.send(idToken);
+        var objeto = {
+            mensaje: idToken
+        };
+        websocket.send(JSON.stringify(objeto));
     }else{
         nombre = user.value;
     }
@@ -58,7 +61,16 @@ function onClose() {
 }
 
 function onMessage(evt) {
-    writeToScreen(evt.data);
+    var mensaje = JSON.parse(evt.data);
+    switch (mensaje.tipo){
+            case "texto":
+                writeToScreen(mensaje.nombre_user + ": " + mensaje.mensaje);
+                break;
+                
+            case "info":
+                writeToScreen(mensaje.mensaje);
+                break;
+        }
 }
 
 function onError(evt) {

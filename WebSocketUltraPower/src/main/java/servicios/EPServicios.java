@@ -53,6 +53,20 @@ public class EPServicios {
         return userCreado;
     }
     
+    public boolean comprobarUserGoogle(String email){
+        EpDAO dao = new EpDAO();
+        boolean existe;
+        
+        String pass = dao.getPass(email);
+        
+        if(pass != null){
+            existe = true;
+        } else {
+            existe = false;
+        }
+        return existe;
+    }
+    
     public boolean guardarMensaje(Mensaje m){
         EpDAO dao = new EpDAO();
         return dao.guardarMensaje(m);
