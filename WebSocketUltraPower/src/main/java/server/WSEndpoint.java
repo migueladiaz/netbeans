@@ -49,6 +49,8 @@ public class WSEndpoint {
                     for (Session sesionesMandar : session.getOpenSessions()) {
                         if (!session.equals(sesionesMandar)) {
                             sesionesMandar.getBasicRemote().sendObject(m);
+                            //solo si no se usan encoder y decoder
+                            //sesionesMandar.getBasicRemote().sendText(lo que sea);
                         }
                     }
                 } else {
@@ -67,17 +69,17 @@ public class WSEndpoint {
         
         if (sessionQueManda.getUserProperties().get("login").equals("OK")) {
             try {
-                
                 if(mensaje.getGuardar()==true){
                     es.guardarMensaje(mensaje);
                 }
-                
-                for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
-
-                    if (!sessionQueManda.equals(sesionesMandar)) {
-                        sesionesMandar.getBasicRemote().sendObject(mensaje);
-                    }
-
+                switch(mensaje.getTipo()){
+                    case "texto":
+                        for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                            if (!sessionQueManda.equals(sesionesMandar)) {
+                                sesionesMandar.getBasicRemote().sendObject(mensaje);
+                            }
+                        }
+                        break;
                 }
             } catch (Exception ex) {
                 Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);

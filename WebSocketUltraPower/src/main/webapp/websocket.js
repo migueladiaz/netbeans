@@ -28,6 +28,8 @@ var output = document.getElementById("output");
 $(document).ready(function(){
     $("#chat").submit(function(event){
         event.preventDefault();
+        /*Solo si no se usan encoder y decoder
+          websocket.send(myField.value);*/
         var fechaActual = new Date();
         var objeto = {
             tipo: "texto",
@@ -61,6 +63,8 @@ function onClose() {
 }
 
 function onMessage(evt) {
+    /*Solo si no se usan encoder y decoder
+      writeToScreen(evt.data);*/
     var mensaje = JSON.parse(evt.data);
     switch (mensaje.tipo){
             case "texto":
