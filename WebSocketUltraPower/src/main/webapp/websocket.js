@@ -6,9 +6,9 @@ var websocket;
 var idToken;
 var nombre;
 
-function conectar(){
-    websocket = new WebSocket(wsUri+"/"+user.value+"/"+pass.value,[]);
-    
+function conectar() {
+    websocket = new WebSocket(wsUri + "/" + user.value + "/" + pass.value, []);
+
     websocket.onopen = function (evt) {
         onOpen(evt);
     };
@@ -25,11 +25,11 @@ function conectar(){
 
 var output = document.getElementById("output");
 
-$(document).ready(function(){
-    $("#chat").submit(function(event){
+$(document).ready(function () {
+    $("#chat").submit(function (event) {
         event.preventDefault();
         /*Solo si no se usan encoder y decoder
-          websocket.send(myField.value);*/
+         websocket.send(myField.value);*/
         var fechaActual = new Date();
         var objeto = {
             tipo: "texto",
@@ -41,20 +41,20 @@ $(document).ready(function(){
         };
         websocket.send(JSON.stringify(objeto));
         writeToScreen("Tu: " + myField.value);
-        myField.value="";
+        myField.value = "";
     });
 });
 
 function onOpen() {
-    if(user.value == "google"){
+    if (user.value == "google") {
         var objeto = {
             mensaje: idToken
         };
         websocket.send(JSON.stringify(objeto));
-    }else{
+    } else {
         nombre = user.value;
     }
-    writeToScreen("Bienvenido "+nombre);
+    writeToScreen("Bienvenido " + nombre);
     mostrarChat();
 }
 function onClose() {
@@ -64,17 +64,23 @@ function onClose() {
 
 function onMessage(evt) {
     /*Solo si no se usan encoder y decoder
-      writeToScreen(evt.data);*/
+     writeToScreen(evt.data);*/
     var mensaje = JSON.parse(evt.data);
-    switch (mensaje.tipo){
-            case "texto":
-                writeToScreen(mensaje.nombre_user + ": " + mensaje.mensaje);
-                break;
-                
-            case "info":
-                writeToScreen(mensaje.mensaje);
-                break;
-        }
+    switch (mensaje.tipo) {
+        case "texto":
+            writeToScreen(mensaje.nombre_user + ": " + mensaje.mensaje);
+            break;
+
+        case "info":
+            writeToScreen(mensaje.mensaje);
+            break;
+            
+        case "canales":
+            var canales = JSON.parse(mensaje.mensaje);
+            for (var canal in canales){
+                $("#listaCanales").append(new Option(canales[canal].nombre, canales[canal].id));
+            }
+    }
 }
 
 function onError(evt) {
@@ -91,25 +97,34 @@ function writeToScreen(message) {
 }
 
 function onSignIn(googleUser) {
-    idToken =  googleUser.getAuthResponse().id_token;
+    idToken = googleUser.getAuthResponse().id_token;
     var profile = googleUser.getBasicProfile();
     nombre = profile.getName();
-    user.value="google";
-    pass.value="google";
+    user.value = "google";
+    pass.value = "google";
     conectar();
 }
 
-function mostrarChat(){
-    $("#conteLogin").fadeOut(100, function(){
+function mostrarChat() {
+    $("#conteLogin").fadeOut(100, function () {
         $("#conteChat").fadeIn(100);
     });
+    getCanales();
 }
 
-function mostrarLogin(){
+function mostrarLogin() {
     $("#user").val("");
     $("#pass").val("");
-    $("#conteChat").fadeOut(100, function(){
+    $("#conteChat").fadeOut(100, function () {
         $("#conteLogin").fadeIn(100);
     });
     $("#output").empty();
+}
+
+function getCanales(){
+    $("#listaCanales").empty();
+    var objeto = {
+        tipo: "canales"
+    };
+    websocket.send(JSON.stringify(objeto));
 }

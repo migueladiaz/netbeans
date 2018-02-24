@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/style.css">
-        <link rel="stylesheet" href="assets/prueba.css">
+        <link rel="stylesheet" href="assets/switch.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -15,6 +15,7 @@
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="125084952103-ggvd68hk194h03db20sgit6epeaf0m1d.apps.googleusercontent.com">
         <title>Chat</title>
+
     </head>
     <body>
         <div class="jumbotron">
@@ -58,9 +59,15 @@
                 <div id="panel">
                     <table>
                         <tr>
+                            <th>
+                                <span class="texto">Guardar mensajes</span>
+                            </th>
+                            <th>
+                                <span class="texto">Selecciona un canal</span>
+                            </th>
+                        </tr>
+                        <tr>
                             <td>
-                                <span>Guardar mensajes</span>
-                                <br>
                                 <label class="tgl">
                                     <input id="guardar" type="checkbox"/>
                                     <span class="tgl_body">
@@ -73,20 +80,23 @@
                                 </label>
                             </td>
                             <td>
-                                <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
-
-                                <script>
-                                    function signOut() {
-                                        var auth2 = gapi.auth2.getAuthInstance();
-                                        auth2.signOut().then(function () {
-                                            console.log('User signed out.');
-                                        });
-                                        websocket.close();
-                                    }
-                                </script>
+                                <select id="listaCanales" class="custom-select">
+                                </select>
                             </td>
                         </tr>
                     </table>
+                    
+                    <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
+
+                    <script>
+                        function signOut() {
+                            var auth2 = gapi.auth2.getAuthInstance();
+                            auth2.signOut().then(function () {
+                                console.log('User signed out.');
+                            });
+                            websocket.close();
+                        }
+                    </script>
                 </div>
             </div>
         </div>
