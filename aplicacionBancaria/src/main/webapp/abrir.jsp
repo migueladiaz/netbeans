@@ -63,34 +63,30 @@
 
                 <div class="tab-content">
                     <div id="menu1" class="container tab-pane active">
-                        <br>
-                        <br>
                         <h3>Introduce el número de cuenta</h3>
-                        <br>
+                        <span id="errorCuenta" class="errorFormulario"></span>
                         <br>
                         <input type="text" id="numCuenta" placeholder="Número de cuenta">
+                        <br>
+                        <button id="comprobarCuenta" class="btn btn-dark">Comprobar</button>
                     </div>
                     <div id="menu2" class="container tab-pane fade">
-                        <br>
-                        <br>
                         <h3>Introduce el DNI del titular de la cuenta</h3>
+                        <span id="errorDni" class="errorFormulario"></span>
                         <br>
+                        <input type="text" id="numDni" placeholder="DNI">
                         <br>
-                        <input type="text" id="dni" placeholder="DNI">
+                        <button id="comprobarDni" class="btn btn-dark">Comprobar</button>
                     </div>
                     <div id="menu3" class="container tab-pane fade">
-                        <br>
-                        <br>
                         <h3>Introduce los datos del titular</h3>
-                        <br>
-                        <br>
                         <table id="tablaDatos">
                             <tr>
                                 <td>
                                     <span>Nombre y apellidos:</span>
                                 </td>
                                 <td>
-                                    <input type="text" id="nombre" placeholder="Nombre y apellidos">
+                                    <input class="datosTitular" type="text" id="nombre" placeholder="Nombre y apellidos">
                                 </td>
                             </tr>
                             <tr>
@@ -98,7 +94,7 @@
                                     <span>Dirección:</span>
                                 </td>
                                 <td>
-                                    <input type="text" id="direccion" placeholder="Dirección">
+                                    <input class="datosTitular" type="text" id="direccion" placeholder="Dirección">
                                 </td>
                             </tr>
                             <tr>
@@ -106,7 +102,7 @@
                                     <span>Teléfono:</span>
                                 </td>
                                 <td>
-                                    <input type="text" id="telefono" placeholder="Teléfono">
+                                    <input class="datosTitular" type="text" id="telefono" placeholder="Teléfono">
                                 </td>
                             </tr>
                             <tr>
@@ -114,7 +110,7 @@
                                     <span>Email:</span>
                                 </td>
                                 <td>
-                                    <input type="text" id="email" placeholder="Email">
+                                    <input class="datosTitular" type="email" id="email" placeholder="Email">
                                 </td>
                             </tr>
                             <tr>
@@ -122,10 +118,11 @@
                                     <span>Fecha de nacimiento:</span>
                                 </td>
                                 <td>
-                                    <input type="text" id="fechaNacimiento" placeholder="dd/mm/yyyy">
+                                    <input class="datosTitular" type="text" id="fechaNacimiento" placeholder="dd/mm/yyyy">
                                 </td>
                             </tr>
                         </table>
+                        <button id="enviarDatos" class="btn btn-dark">Enviar</button>
                     </div>
                 </div>
             </div>

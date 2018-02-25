@@ -23,6 +23,11 @@
     display: none;
 }
 
+.errorFormulario{
+    display: none;
+    color: indianred;
+}
+
 /*LISTADO DE MOVIMIENTOS*/
 
 #formularioListado{
@@ -33,11 +38,6 @@
 
 .fecha{
     width: 160px;
-}
-
-.errorFormulario{
-    display: none;
-    color: indianred;
 }
 
 #contTabla{
@@ -118,6 +118,7 @@
 }
 
 #sig{
+    display:none;
     position: absolute;
     bottom: 0;
     right: 20%;
@@ -135,4 +136,16 @@
 
 .tab-pane{
     height: 350px;
+}
+
+.tab-pane h3{
+    padding: 75px 0 40px 0; 
+}
+
+.tab-pane button{
+    margin-top: 40px; 
+}
+
+#enviarDatos{
+    display:none;
 }
