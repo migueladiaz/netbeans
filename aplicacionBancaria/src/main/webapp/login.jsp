@@ -10,23 +10,16 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/style/estilo.css">
+        <link rel="stylesheet/less" type="text/css" href="assets/style/estiloLess.less" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.0/less.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <meta charset="UTF-8">
-        <title>Iniciar sesión</title>
         <script src="assets/scripts/javascriptLogin.js"></script>
-        <script>
-            $(document).ready(function() {
-                $("#boton").click(function() {
-                    if (validar()) {
-                        
-                    }
-                });
-            });
-        </script>
+        <title>Iniciar sesión</title>
     </head>
 
     <body>
