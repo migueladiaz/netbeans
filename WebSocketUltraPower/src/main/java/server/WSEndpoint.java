@@ -7,6 +7,7 @@ package server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import config.ServletAwareConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -30,12 +31,11 @@ import utils.Constantes;
  *
  * @author Miguel
  */
-@ServerEndpoint(value = "/websocket/{user}/{pass}",decoders = MessageDecoder.class, encoders = MessageEncoder.class)
+@ServerEndpoint(value = "/websocket/{user}/{pass}",decoders = MessageDecoder.class, encoders = MessageEncoder.class, configurator = ServletAwareConfig.class)
 public class WSEndpoint {
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("user") String nombre, @PathParam("pass") String pass,
-            EndpointConfig config) {
+    public void onOpen(Session session, @PathParam("user") String nombre, @PathParam("pass") String pass, EndpointConfig config) {
         
         HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpsession");
         httpSession.setAttribute("login", "ok");
@@ -76,7 +76,7 @@ public class WSEndpoint {
     }
 
     @OnMessage
-    public void echoText(Mensaje mensaje, Session sessionQueManda) {
+    public void echoText(Mensaje mensaje, Session sessionQueManda, EndpointConfig config) {
         
         EPServicios es = new EPServicios();
         
@@ -110,6 +110,8 @@ public class WSEndpoint {
             }
         } else {
             try {
+                HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpsession");
+                ArrayList<String> usuariosConectados = new ArrayList();
                 String idToken = mensaje.getMensaje();
                 GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
                 if(!es.comprobarUserGoogle(payLoad.getEmail())){
@@ -124,7 +126,9 @@ public class WSEndpoint {
                     if (!sessionQueManda.equals(sesionesMandar)) {
                         sesionesMandar.getBasicRemote().sendObject(mensaje);
                     }
+                    usuariosConectados.add((String)sesionesMandar.getUserProperties().get("user"));
                 }
+                httpSession.setAttribute("usuarios", usuariosConectados);
             } catch (Exception ex) {
                 try {
                     sessionQueManda.close();
@@ -137,18 +141,26 @@ public class WSEndpoint {
     }
 
     @OnClose
-    public void onClose(Session session) {
+    public void onClose(Session session, EndpointConfig config) {
         if(session.getUserProperties().get("user")!=null){
+            HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpsession");
             Mensaje m = new Mensaje();
             m.setTipo("info");
             m.setMensaje((String)session.getUserProperties().get("user")+Constantes.MENSAJE_DESCONECTADO);
+            ArrayList<String> usuariosConectados = new ArrayList();
             for (Session s : session.getOpenSessions()) {
+                if (!s.equals(session)) {
+                    usuariosConectados.add((String)s.getUserProperties().get("user"));
+                }
+                
                 try {
                     s.getBasicRemote().sendObject(m);
                 } catch (Exception ex) {
                     Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            httpSession.setAttribute("usuarios", usuariosConectados);
         }
     }
 

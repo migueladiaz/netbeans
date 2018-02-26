@@ -7,7 +7,6 @@ package server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author rafa
+ * @author Miguel
  */
 @WebServlet(name = "Lista", urlPatterns = {"/lista"})
 public class Lista extends HttpServlet {
@@ -37,7 +36,7 @@ public class Lista extends HttpServlet {
         if(request.getSession().getAttribute("login").equals("ok")){
             ArrayList<String> lista = (ArrayList)request.getSession().getAttribute("usuarios");
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValueAsString(lista);
+            response.getWriter().write(mapper.writeValueAsString(lista));
         }
     }
 

@@ -12,8 +12,10 @@ package model;
 public class Canal {
     private int id;
     private String nombre;
-    private String admin;
+    private String user_admin;
     private String clave;
+    private String iv;
+    private String salt;
 
     public int getId() {
         return id;
@@ -31,12 +33,12 @@ public class Canal {
         this.nombre = nombre;
     }
 
-    public String getAdmin() {
-        return admin;
+    public String getUser_admin() {
+        return user_admin;
     }
 
-    public void setAdmin(String admin) {
-        this.admin = admin;
+    public void setUser_admin(String user_admin) {
+        this.user_admin = user_admin;
     }
 
     public String getClave() {
@@ -46,4 +48,21 @@ public class Canal {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+    public String getIv() {
+        return iv;
+    }
+
+    public void setIv(String iv) {
+        this.iv = iv;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+    
 }

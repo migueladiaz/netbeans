@@ -74,13 +74,19 @@ function onMessage(evt) {
         case "info":
             writeToScreen(mensaje.mensaje);
             break;
-            
+
         case "canales":
             var canales = JSON.parse(mensaje.mensaje);
-            for (var canal in canales){
+            for (var canal in canales) {
                 $("#listaCanales").append(new Option(canales[canal].nombre, canales[canal].id));
             }
+            
+        case "conexion":
+            writeToScreen(mensaje.nombre_user + ": " + mensaje.mensaje);
+            getUsuarios();
+            break;
     }
+    
 }
 
 function onError(evt) {
@@ -110,6 +116,7 @@ function mostrarChat() {
         $("#conteChat").fadeIn(100);
     });
     getCanales();
+    getUsuarios();
 }
 
 function mostrarLogin() {
@@ -121,10 +128,21 @@ function mostrarLogin() {
     $("#output").empty();
 }
 
-function getCanales(){
+function getCanales() {
     $("#listaCanales").empty();
     var objeto = {
         tipo: "canales"
     };
     websocket.send(JSON.stringify(objeto));
+}
+
+function getUsuarios() {
+    $.post("lista",
+    function (data, status) {
+        var datos = JSON.parse(data);
+        $("#listaUsuarios").empty();
+        for (var usuario in datos) {
+            $("#listaUsuarios").append(new Option(datos[usuario], datos[usuario]));
+        }
+    });
 }

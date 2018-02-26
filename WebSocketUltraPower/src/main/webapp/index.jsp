@@ -65,6 +65,9 @@
                             <th>
                                 <span class="texto">Selecciona un canal</span>
                             </th>
+                            <th>
+                                <span class="texto">Usuarios conectados</span>
+                            </th>
                         </tr>
                         <tr>
                             <td>
@@ -80,12 +83,14 @@
                                 </label>
                             </td>
                             <td>
-                                <select id="listaCanales" class="custom-select">
-                                </select>
+                                <select id="listaCanales"></select>
+                            </td>
+                            <td>
+                                <select id="listaUsuarios"></select>
                             </td>
                         </tr>
                     </table>
-                    
+                    <br>
                     <button class="btn btn-secondary" onclick="signOut()">Sign out</button>
 
                     <script>
