@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -19,8 +20,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import model.Mensaje;
-import model.MessageDecoder;
-import model.MessageEncoder;
+import utils.MessageDecoder;
+import utils.MessageEncoder;
 import servicios.EPServicios;
 import servicios.IdTokenVerifierAndParser;
 import utils.Constantes;
@@ -35,6 +36,9 @@ public class WSEndpoint {
     @OnOpen
     public void onOpen(Session session, @PathParam("user") String nombre, @PathParam("pass") String pass,
             EndpointConfig config) {
+        
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpsession");
+        httpSession.setAttribute("login", "ok");
 
         if (nombre.equals("google")) {
             session.getUserProperties().put("login", "NO");
@@ -45,16 +49,23 @@ public class WSEndpoint {
                 if (es.comprobarPass(nombre, pass)) {
                     session.getUserProperties().put("login", "OK");
                     session.getUserProperties().put("user", nombre);
+                    
                     Mensaje m = new Mensaje();
                     m.setTipo("info");
                     m.setMensaje(nombre+Constantes.MENSAJE_CONECTADO);
+                    
+                    ArrayList<String> usuariosConectados = new ArrayList();
+                    
                     for (Session sesionesMandar : session.getOpenSessions()) {
                         if (!session.equals(sesionesMandar)) {
                             sesionesMandar.getBasicRemote().sendObject(m);
                             //solo si no se usan encoder y decoder
                             //sesionesMandar.getBasicRemote().sendText(lo que sea);
                         }
+                        usuariosConectados.add((String)sesionesMandar.getUserProperties().get("user"));
                     }
+                    
+                    httpSession.setAttribute("usuarios", usuariosConectados);
                 } else {
                     session.close();
                 }
