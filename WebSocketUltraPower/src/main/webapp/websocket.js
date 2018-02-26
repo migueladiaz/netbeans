@@ -81,11 +81,8 @@ function onMessage(evt) {
                 $("#listaCanales").append(new Option(canales[canal].nombre, canales[canal].id));
             }
             
-        case "conexion":
-            writeToScreen(mensaje.nombre_user + ": " + mensaje.mensaje);
-            getUsuarios();
-            break;
     }
+    getUsuarios();
     
 }
 
