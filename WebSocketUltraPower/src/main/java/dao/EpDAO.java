@@ -5,9 +5,12 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Canal;
 import model.Mensaje;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -20,6 +23,7 @@ public class EpDAO {
     public final String queryAddUser="INSERT INTO registro (nombre, pass) VALUES (?,?)";
     public final String queryAddUserGoogle="INSERT INTO registro (nombre, pass) VALUES (?,'google')";
     public final String queryGuardarMensaje="INSERT INTO mensajes (mensaje, fecha, id_canal, nombre_user) VALUES (?,?,?,?)";
+    public final String queryGetCanales="SELECT * FROM canales";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -78,4 +82,18 @@ public class EpDAO {
         return guardado;
     }
     
+    public ArrayList getCanales() {
+        ArrayList<Canal> canales;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            canales =(ArrayList) jtm.query(queryGetCanales, new BeanPropertyRowMapper(Canal.class));
+            if(canales.size()==0){
+                canales = null;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            canales = null;
+        }
+        return canales;
+    }
 }

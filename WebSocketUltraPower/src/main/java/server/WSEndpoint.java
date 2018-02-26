@@ -5,8 +5,10 @@
  */
 package server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.EndpointConfig;
@@ -76,6 +78,17 @@ public class WSEndpoint {
                     case "texto":
                         for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
                             if (!sessionQueManda.equals(sesionesMandar)) {
+                                sesionesMandar.getBasicRemote().sendObject(mensaje);
+                            }
+                        }
+                        break;
+                        
+                    case "canales":
+                        ArrayList canales = es.getCanales();
+                        ObjectMapper mapper = new ObjectMapper();
+                        mensaje.setMensaje(mapper.writeValueAsString(canales));
+                        for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                            if (sessionQueManda.equals(sesionesMandar)) {
                                 sesionesMandar.getBasicRemote().sendObject(mensaje);
                             }
                         }

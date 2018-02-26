@@ -6,11 +6,14 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Cliente;
 import servicios.Servicios;
 import utils.Constantes;
 
@@ -54,7 +57,7 @@ public class Abrir extends HttpServlet {
                     }
                     break;
                     
-                case "ComprobarTitular":
+                case "comprobarTitular":
                     if (s.comprobarDni(dni)) {
                         if (s.comprobarTitularAlta(dni)) {
                             response.getWriter().write(s.getCliente(dni));
@@ -64,6 +67,20 @@ public class Abrir extends HttpServlet {
                     } else {
                         response.getWriter().write(s.error(Constantes.ERROR));
                     }
+                    break;
+                    
+                case "guardarTitular":
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"), dtf);
+                    LocalDate fechaCliente = LocalDate.now();
+                    Cliente c = new Cliente();
+                    c.setCl_dni(dni);
+                    c.setCl_nom(request.getParameter("nombre"));
+                    c.setCl_dir(request.getParameter("direccion"));
+                    c.setCl_tel(Integer.parseInt(request.getParameter("telefono")));
+                    c.setCl_ema(request.getParameter("email"));
+                    c.setCl_fna(fechaNacimiento);
+                    c.setCl_fcl(fechaCliente);
                     break;
             }
             

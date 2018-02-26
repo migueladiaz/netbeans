@@ -85,10 +85,6 @@ body{
     margin: auto;
 }
 
-#panel td{
-    padding: 10px 30px;
-}
-
-.tgl{
-    margin-top: 10px;
+#panel th{
+    padding: 10px 20px;
 }

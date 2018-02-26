@@ -6,6 +6,7 @@
 package servicios;
 
 import dao.EpDAO;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Mensaje;
@@ -68,5 +69,10 @@ public class EPServicios {
     public boolean guardarMensaje(Mensaje m){
         EpDAO dao = new EpDAO();
         return dao.guardarMensaje(m);
+    }
+    
+    public ArrayList getCanales(){
+        EpDAO dao = new EpDAO();
+        return dao.getCanales();
     }
 }
