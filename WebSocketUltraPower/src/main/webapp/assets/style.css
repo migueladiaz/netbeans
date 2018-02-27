@@ -21,7 +21,8 @@ body{
 }
 
 .jumbotron h1 {
-  color: #fff;
+    background-color: #6c757d;
+    color: #fff;
 }
 
 #conteLogin{
@@ -115,7 +116,8 @@ body{
     text-align: center;
     padding: 10px 0;
     border-bottom: 1px solid #ced4da;
-    margin-bottom: 20px;
+    margin: -5px -5px 20px -5px;
+    color: white;
 }
 
 #listaUsuarios{
@@ -123,4 +125,8 @@ body{
     padding: 5px;
     background-color: white;
     border: 1px solid #ced4da;
+}
+
+#listaUsuarios p{
+    padding-left: 10px;
 }

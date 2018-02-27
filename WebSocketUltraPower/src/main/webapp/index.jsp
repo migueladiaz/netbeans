@@ -68,7 +68,7 @@
                                 <span class="texto">Guardar mensajes</span>
                             </th>
                             <th>
-                                <span class="texto">Selecciona un canal</span>
+                                <span class="texto">Suscribirse a un canal</span>
                             </th>
                         </tr>
                         <tr>
@@ -85,7 +85,7 @@
                                 </label>
                             </td>
                             <td>
-                                <select id="listaCanales"></select>
+                                <select id="listaCanales" onchange="suscripcion()"></select>
                             </td>
                         </tr>
                         <tr>

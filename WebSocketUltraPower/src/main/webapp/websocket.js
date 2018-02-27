@@ -78,6 +78,7 @@ function onMessage(evt) {
 
         case "canales":
             var canales = JSON.parse(mensaje.mensaje);
+            $("#listaCanales").append("<option disabled selected>Selecciona un canal</option><option disabled>-------------------------</option>");
             for (var canal in canales) {
                 $("#listaCanales").append(new Option(canales[canal].nombre, canales[canal].id));
             }
@@ -106,6 +107,43 @@ function onMessage(evt) {
             
             break;
             
+        case "peticion":
+            var aceptado = confirm("El usuario "+mensaje.nombre_user+" ha solicitado permiso para unirse a "+mensaje.mensaje);
+            if(aceptado == true){
+                var objeto = {
+                    tipo: "aceptarPeticion",
+                    nombre_user: mensaje.nombre_user,
+                    id_canal: mensaje.id_canal
+                };
+                websocket.send(JSON.stringify(objeto));
+            }else{
+                var objeto2 = {
+                    tipo: "rechazarPeticion",
+                    nombre_user: mensaje.nombre_user
+                };
+                websocket.send(JSON.stringify(objeto2));
+            }
+            break;
+            
+        case "errorPeticion":
+            alert("No se ha podido enviar la solicitud. El administrador no está conectado");
+            break;
+            
+        case "errorSuscripcion":
+            alert("No se ha podido enviar la solicitud. Ya estás suscrito a ese canal");
+            break;
+            
+        case "aceptado":
+            if(mensaje.mensaje == "ok"){
+                alert("El administrador ha aceptado tu solicitud");
+            }else{
+                alert("Ha ocurrido un error");
+            }
+            break;
+            
+        case "rechazado":
+            alert("El administrador ha rechazado tu solicitud");
+            break;
     }
     
 }
@@ -171,9 +209,9 @@ function getUsuarios() {
     function (data, status) {
         var datos = JSON.parse(data);
         $("#listaUsuarios").empty();
-        $("#listaUsuarios").html("<h3>Usuarios</h3>");
+        $("#listaUsuarios").html("<h3 class='bg-secondary'>Usuarios</h3>");
         for (var usuario in datos) {
-            $("#listaUsuarios").append(datos[usuario]+"<br>");
+            $("#listaUsuarios").append("<p>"+datos[usuario]+"</p>");
         }
     });
 }
@@ -183,6 +221,16 @@ function cargar(){
         tipo: "cargar",
         inicio: inicio.value,
         fin: fin.value
+    };
+    websocket.send(JSON.stringify(objeto));
+}
+
+function suscripcion(){
+    var objeto = {
+        tipo: "suscripcion",
+        mensaje: $("#listaCanales option:selected" ).text(),
+        nombre_user: nombre,
+        id_canal: $("#listaCanales").val()
     };
     websocket.send(JSON.stringify(objeto));
 }

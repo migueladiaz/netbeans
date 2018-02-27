@@ -85,4 +85,19 @@ public class EPServicios {
         EpDAO dao = new EpDAO();
         return dao.getMisCanales(nombre);
     }
+    
+    public boolean comprobarSuscripcion(String nombre, int id){
+        EpDAO dao = new EpDAO();
+        return dao.comprobarSuscripcion(nombre, id);
+    }
+    
+    public String getAdminCanal(int idCanal){
+        EpDAO dao = new EpDAO();
+        return dao.getAdminCanal(idCanal);
+    }
+    
+    public boolean addUserCanal(int id, String nombre){
+        EpDAO dao = new EpDAO();
+        return dao.addUserCanal(id, nombre);
+    }
 }

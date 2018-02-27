@@ -26,6 +26,9 @@ public class EpDAO {
     public final String queryGetCanales="SELECT * FROM canales";
     public final String queryGetMensajes="SELECT * FROM mensajes WHERE fecha BETWEEN ? AND ?";
     public final String queryGetMisCanales="SELECT c.* FROM canales c JOIN canales_users cu ON c.id = cu.id_canal WHERE cu.user = ?";
+    public final String queryGetAdminCanal="SELECT user_admin FROM canales WHERE id = ?";
+    public final String queryComprobarSuscripcion="SELECT user FROM canales_users WHERE id_user = ? AND user = ?";
+    public final String queryAddUserCanal="INSERT INTO canales_users (id_canal, user) VALUES (?,?)";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -127,5 +130,47 @@ public class EpDAO {
             canales = null;
         }
         return canales;
+    }
+    
+    public String getAdminCanal(int idCanal) {
+        String resultado = null;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            resultado = jtm.queryForObject(queryGetAdminCanal, String.class, idCanal);
+
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    
+    public boolean comprobarSuscripcion(String nombre, int id) {
+        String resultado;
+        boolean existe = false;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            resultado = jtm.queryForObject(queryComprobarSuscripcion, String.class, id, nombre);
+            if(resultado != null){
+                existe = true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return existe;
+    }
+    
+    public boolean addUserCanal(int id, String nombre) {
+        boolean registrado = false;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            int filas = jtm.update(queryAddUser, id, nombre);
+            if (filas > 0) {
+                registrado = true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            registrado = false;
+        }
+        return registrado;
     }
 }
