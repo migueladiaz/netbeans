@@ -25,6 +25,7 @@ public class EpDAO {
     public final String queryGuardarMensaje="INSERT INTO mensajes (mensaje, fecha, id_canal, nombre_user) VALUES (?,?,?,?)";
     public final String queryGetCanales="SELECT * FROM canales";
     public final String queryGetMensajes="SELECT * FROM mensajes WHERE fecha BETWEEN ? AND ?";
+    public final String queryGetMisCanales="SELECT c.* FROM canales c JOIN canales_users cu ON c.id = cu.id_canal WHERE cu.user = ?";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -111,5 +112,20 @@ public class EpDAO {
             mensajes = null;
         }
         return mensajes;
+    }
+    
+    public ArrayList getMisCanales(String nombre) {
+        ArrayList<Canal> canales;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            canales =(ArrayList) jtm.query(queryGetMisCanales, new BeanPropertyRowMapper(Canal.class), nombre);
+            if(canales.isEmpty()){
+                canales = null;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            canales = null;
+        }
+        return canales;
     }
 }

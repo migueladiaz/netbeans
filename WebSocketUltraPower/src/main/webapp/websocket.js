@@ -28,6 +28,7 @@ var output = document.getElementById("output");
 $(document).ready(function () {
     $("#chat").submit(function (event) {
         event.preventDefault();
+        alert($("#misCanales").value);
         /*Solo si no se usan encoder y decoder
          websocket.send(myField.value);*/
         var fechaActual = new Date();
@@ -35,7 +36,7 @@ $(document).ready(function () {
             tipo: "texto",
             mensaje: myField.value,
             fecha: fechaActual,
-            id_canal: 1,
+            id_canal: misCanales.value,
             nombre_user: nombre,
             guardar: guardar.checked
         };
@@ -96,6 +97,17 @@ function onMessage(evt) {
             }
             break;
             
+        case "misCanales":
+            var canales = JSON.parse(mensaje.mensaje);
+            $("#misCanales").append(new Option("General", "0"));
+            if(canales != null){
+                for (var canal in canales) {
+                    $("#misCanales").append(new Option(canales[canal].nombre, canales[canal].id));
+                }   
+            }
+            
+            break;
+            
     }
     
 }
@@ -127,6 +139,7 @@ function mostrarChat() {
         $("#conteChat").fadeIn(100);
     });
     getCanales();
+    getMisCanales();
     getUsuarios();
 }
 
@@ -143,6 +156,15 @@ function getCanales() {
     $("#listaCanales").empty();
     var objeto = {
         tipo: "canales"
+    };
+    websocket.send(JSON.stringify(objeto));
+}
+
+function getMisCanales() {
+    $("#misCanales").empty();
+    var objeto = {
+        tipo: "misCanales",
+        nombre_user: nombre
     };
     websocket.send(JSON.stringify(objeto));
 }

@@ -48,6 +48,9 @@
                     <div id="output"></div>
                     <form id="chat">
                         <div class="input-group">
+                            <select id="misCanales">
+                                <option value="0">General</option>
+                            </select>
                             <input id="myField" type="text" class="form-control" placeholder="Escribe tu mensaje...">
                             <span class="input-group-btn">
                                 <input id="enviar" class="btn btn-secondary" type="submit" value="Enviar">

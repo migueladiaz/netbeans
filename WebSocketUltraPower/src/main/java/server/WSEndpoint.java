@@ -122,6 +122,16 @@ public class WSEndpoint {
                             }
                         }
                         break;
+                        
+                    case "misCanales":
+                        ArrayList misCanales = es.getMisCanales(mensaje.getNombre_user());
+                        mensaje.setMensaje(mapper.writeValueAsString(misCanales));
+                        for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                            if (sessionQueManda.equals(sesionesMandar)) {
+                                sesionesMandar.getBasicRemote().sendObject(mensaje);
+                            }
+                        }
+                        break;
                 }
             } catch (Exception ex) {
                 Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
