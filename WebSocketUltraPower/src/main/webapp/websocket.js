@@ -5,6 +5,7 @@ console.log("Connecting to " + wsUri);
 var websocket;
 var idToken;
 var nombre;
+var output = document.getElementById("output");
 
 function conectar() {
     websocket = new WebSocket(wsUri + "/" + user.value + "/" + pass.value, []);
@@ -22,8 +23,6 @@ function conectar() {
         onClose(evt);
     };
 }
-
-var output = document.getElementById("output");
 
 $(document).ready(function () {
     $("#chat").submit(function (event) {
@@ -140,7 +139,6 @@ function mostrarChat() {
     });
     getCanales();
     getMisCanales();
-    getUsuarios();
 }
 
 function mostrarLogin() {
@@ -174,8 +172,9 @@ function getUsuarios() {
     function (data, status) {
         var datos = JSON.parse(data);
         $("#listaUsuarios").empty();
+        $("#listaUsuarios").html("<h3>Usuarios</h3>");
         for (var usuario in datos) {
-            $("#listaUsuarios").append(new Option(datos[usuario], datos[usuario]));
+            $("#listaUsuarios").append(datos[usuario]+"<br>");
         }
     });
 }

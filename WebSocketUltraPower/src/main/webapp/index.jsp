@@ -22,7 +22,7 @@
             <h1>Jumbotron</h1>
             <h5>La magia de websocket</h5>
         </div>
-        <div class="container col-xl-6">
+        <div class="container">
             <div id="conteLogin">
                 <h1>Login</h1>
                 <form id="login" method="post">
@@ -43,20 +43,22 @@
                 <div id="botonGoogle" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
             </div>
             <div id="conteChat">
-
-                <div id="textoChat">
-                    <div id="output"></div>
-                    <form id="chat">
-                        <div class="input-group">
-                            <select id="misCanales">
-                                <option value="0">General</option>
-                            </select>
-                            <input id="myField" type="text" class="form-control" placeholder="Escribe tu mensaje...">
-                            <span class="input-group-btn">
-                                <input id="enviar" class="btn btn-secondary" type="submit" value="Enviar">
-                            </span>
-                        </div>
-                    </form>
+                <div class="row">
+                    <div id="conteUsuarios" class="col">
+                        <div id="listaUsuarios"></div>
+                    </div>
+                    <div id="textoChat" class="col-xl-9">
+                        <div id="output"></div>
+                        <form id="chat">
+                            <div class="input-group">
+                                <select id="misCanales"></select>
+                                <input id="myField" type="text" class="form-control" placeholder="Escribe tu mensaje...">
+                                <span class="input-group-btn">
+                                    <input id="enviar" class="btn btn-secondary" type="submit" value="Enviar">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
                 <div id="panel">
@@ -67,9 +69,6 @@
                             </th>
                             <th>
                                 <span class="texto">Selecciona un canal</span>
-                            </th>
-                            <th>
-                                <span class="texto">Usuarios conectados</span>
                             </th>
                         </tr>
                         <tr>
@@ -88,17 +87,14 @@
                             <td>
                                 <select id="listaCanales"></select>
                             </td>
-                            <td>
-                                <select id="listaUsuarios"></select>
-                            </td>
                         </tr>
                         <tr>
-                            <th colspan="3">
+                            <th colspan="2">
                                 <span class="texto">Mostrar mensajes</span>
                             </th>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td colspan="2">
                                 <span>Desde</span>
                                 <input type="date" id="inicio">
                                 <span>Hasta</span>

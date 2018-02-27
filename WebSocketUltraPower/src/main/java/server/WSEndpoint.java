@@ -110,7 +110,7 @@ public class WSEndpoint {
                     case "cargar":
                         ArrayList mensajes = es.getMensajes(mensaje);
                         
-                        if(mensajes.isEmpty()){
+                        if(mensajes == null){
                             mensaje.setMensaje("error");
                         }else{
                             mensaje.setMensaje(mapper.writeValueAsString(mensajes));

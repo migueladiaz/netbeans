@@ -62,8 +62,9 @@ body{
     overflow-y: auto;
 }
 
-#myField{
+#misCanales{
     border-radius: 5px 0px 0px 5px;
+    border: 1px solid #ced4da;
 }
 
 #myField:focus{
@@ -92,4 +93,34 @@ body{
 
 #panel th{
     padding: 10px 20px;
+}
+
+#cargarMensajes{
+    margin-left: 20px;
+}
+
+#conteUsuarios{
+    text-align: left;
+    margin: 40px 25px 10px auto;
+    border-radius: 5px;
+    border: 1px solid gray;
+    box-shadow:gray 0px 0px 4px 1px;
+    height: 500px;
+    width: 100%;
+    padding: 5px;
+    overflow: auto;
+}
+
+#conteUsuarios h3{
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 20px;
+}
+
+#listaUsuarios{
+    min-height: 100%;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #ced4da;
 }
