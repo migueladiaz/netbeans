@@ -27,7 +27,6 @@ function conectar() {
 $(document).ready(function () {
     $("#chat").submit(function (event) {
         event.preventDefault();
-        alert($("#misCanales").value);
         /*Solo si no se usan encoder y decoder
          websocket.send(myField.value);*/
         var fechaActual = new Date();
@@ -35,7 +34,7 @@ $(document).ready(function () {
             tipo: "texto",
             mensaje: myField.value,
             fecha: fechaActual,
-            id_canal: misCanales.value,
+            id_canal: $("#misCanales").val(),
             nombre_user: nombre,
             guardar: guardar.checked
         };
