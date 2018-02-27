@@ -73,6 +73,8 @@ function onMessage(evt) {
 
         case "info":
             writeToScreen(mensaje.mensaje);
+            
+            getUsuarios();
             break;
 
         case "canales":
@@ -80,9 +82,21 @@ function onMessage(evt) {
             for (var canal in canales) {
                 $("#listaCanales").append(new Option(canales[canal].nombre, canales[canal].id));
             }
+            getUsuarios();
+            break;
+            
+        case "cargar":
+            if(mensaje.mensaje == "error"){
+                writeToScreen("No hay mensajes");
+            }else{
+                var mensajes = JSON.parse(mensaje.mensaje);
+                for (var mensaje in mensajes) {
+                    writeToScreen(formatoFecha(mensajes[mensaje].fecha)+" "+mensajes[mensaje].nombre_user+": "+mensajes[mensaje].mensaje);
+                }
+            }
+            break;
             
     }
-    getUsuarios();
     
 }
 
@@ -142,4 +156,34 @@ function getUsuarios() {
             $("#listaUsuarios").append(new Option(datos[usuario], datos[usuario]));
         }
     });
+}
+
+function cargar(){
+    var objeto = {
+        tipo: "cargar",
+        inicio: inicio.value,
+        fin: fin.value
+    };
+    websocket.send(JSON.stringify(objeto));
+}
+
+function formatoFecha(cadena){
+    var fecha = new Date(cadena);
+    var mes = fecha.getMonth()+1;
+    var hora = fecha.getHours();
+    var minutos = fecha.getMinutes();
+    var segundos = fecha.getSeconds();
+    if(mes < 10){
+        mes = "0"+mes;
+    }
+    if(hora < 10){
+        hora = "0"+hora;
+    }
+    if(minutos < 10){
+        minutos = "0"+minutos;
+    }
+    if(segundos < 10){
+        segundos = "0"+segundos;
+    }
+    return fecha.getDate()+"/"+mes+"/"+fecha.getFullYear()+" "+hora+":"+minutos+":"+segundos;
 }

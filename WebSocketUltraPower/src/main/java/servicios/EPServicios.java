@@ -75,4 +75,9 @@ public class EPServicios {
         EpDAO dao = new EpDAO();
         return dao.getCanales();
     }
+    
+    public ArrayList getMensajes(Mensaje m){
+        EpDAO dao = new EpDAO();
+        return dao.getMensajes(m);
+    }
 }

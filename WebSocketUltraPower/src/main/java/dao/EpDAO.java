@@ -24,6 +24,7 @@ public class EpDAO {
     public final String queryAddUserGoogle="INSERT INTO registro (nombre, pass) VALUES (?,'google')";
     public final String queryGuardarMensaje="INSERT INTO mensajes (mensaje, fecha, id_canal, nombre_user) VALUES (?,?,?,?)";
     public final String queryGetCanales="SELECT * FROM canales";
+    public final String queryGetMensajes="SELECT * FROM mensajes WHERE fecha BETWEEN ? AND ?";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -87,7 +88,7 @@ public class EpDAO {
         try {
             JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
             canales =(ArrayList) jtm.query(queryGetCanales, new BeanPropertyRowMapper(Canal.class));
-            if(canales.size()==0){
+            if(canales.isEmpty()){
                 canales = null;
             }
         } catch (Exception ex) {
@@ -95,5 +96,20 @@ public class EpDAO {
             canales = null;
         }
         return canales;
+    }
+    
+    public ArrayList getMensajes(Mensaje m) {
+        ArrayList<Mensaje> mensajes;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
+            mensajes =(ArrayList) jtm.query(queryGetMensajes, new BeanPropertyRowMapper(Mensaje.class), m.getInicio(), m.getFin());
+            if(mensajes.isEmpty()){
+                mensajes = null;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            mensajes = null;
+        }
+        return mensajes;
     }
 }

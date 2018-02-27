@@ -89,6 +89,20 @@
                                 <select id="listaUsuarios"></select>
                             </td>
                         </tr>
+                        <tr>
+                            <th colspan="3">
+                                <span class="texto">Mostrar mensajes</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <span>Desde</span>
+                                <input type="date" id="inicio">
+                                <span>Hasta</span>
+                                <input type="date" id="fin">
+                                <button id="cargarMensajes" class="btn btn-secondary" onclick="cargar()">Cargar</button>
+                            </td>
+                        </tr>
                     </table>
                     <br>
                     <button class="btn btn-secondary" onclick="signOut()">Sign out</button>

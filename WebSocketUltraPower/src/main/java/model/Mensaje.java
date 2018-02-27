@@ -18,6 +18,8 @@ public class Mensaje {
     private int id_canal;
     private String nombre_user;
     private boolean guardar;
+    private Date inicio;
+    private Date fin;
 
     public String getTipo() {
         return tipo;
@@ -65,5 +67,21 @@ public class Mensaje {
 
     public void setGuardar(boolean guardar) {
         this.guardar = guardar;
+    }
+
+    public Date getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Date inicio) {
+        this.inicio = inicio;
+    }
+
+    public Date getFin() {
+        return fin;
+    }
+
+    public void setFin(Date fin) {
+        this.fin = fin;
     }
 }

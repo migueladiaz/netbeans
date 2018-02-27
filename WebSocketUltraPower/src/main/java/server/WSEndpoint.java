@@ -85,6 +85,9 @@ public class WSEndpoint {
                 if(mensaje.getGuardar()==true){
                     es.guardarMensaje(mensaje);
                 }
+                
+                ObjectMapper mapper = new ObjectMapper();
+                
                 switch(mensaje.getTipo()){
                     case "texto":
                         for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
@@ -96,8 +99,23 @@ public class WSEndpoint {
                         
                     case "canales":
                         ArrayList canales = es.getCanales();
-                        ObjectMapper mapper = new ObjectMapper();
                         mensaje.setMensaje(mapper.writeValueAsString(canales));
+                        for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                            if (sessionQueManda.equals(sesionesMandar)) {
+                                sesionesMandar.getBasicRemote().sendObject(mensaje);
+                            }
+                        }
+                        break;
+                        
+                    case "cargar":
+                        ArrayList mensajes = es.getMensajes(mensaje);
+                        
+                        if(mensajes.isEmpty()){
+                            mensaje.setMensaje("error");
+                        }else{
+                            mensaje.setMensaje(mapper.writeValueAsString(mensajes));
+                        }
+                        
                         for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
                             if (sessionQueManda.equals(sesionesMandar)) {
                                 sesionesMandar.getBasicRemote().sendObject(mensaje);
