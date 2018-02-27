@@ -163,7 +163,7 @@ public class EpDAO {
         boolean registrado = false;
         try {
             JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
-            int filas = jtm.update(queryAddUser, id, nombre);
+            int filas = jtm.update(queryAddUserCanal, id, nombre);
             if (filas > 0) {
                 registrado = true;
             }

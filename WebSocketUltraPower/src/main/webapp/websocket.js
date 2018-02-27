@@ -136,6 +136,7 @@ function onMessage(evt) {
         case "aceptado":
             if(mensaje.mensaje == "ok"){
                 alert("El administrador ha aceptado tu solicitud");
+                getMisCanales();
             }else{
                 alert("Ha ocurrido un error");
             }
@@ -233,6 +234,8 @@ function suscripcion(){
         id_canal: $("#listaCanales").val()
     };
     websocket.send(JSON.stringify(objeto));
+    alert("Se ha enviado una solicitud al administrador del canal");
+    $("#listaCanales option[0]" ).attr("selected", "selected");
 }
 
 function formatoFecha(cadena){
