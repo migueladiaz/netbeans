@@ -131,6 +131,18 @@ body{
     padding-left: 10px;
 }
 
-.canal{
+.privado{
     color: #5B83AD;
+}
+
+.general{
+    color: olivedrab;
+}
+
+.info{
+    color: lightsteelblue;
+}
+
+.textoCargado{
+    color: gray;
 }

@@ -253,8 +253,6 @@ public class WSEndpoint {
                     }
                     s.getBasicRemote().sendObject(m);
                 }
-
-                session.close();
             } catch (Exception ex) {
                 Logger.getLogger(WSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -41,9 +41,9 @@ $(document).ready(function () {
         };
         websocket.send(JSON.stringify(objeto));
         if($("#misCanales").val()>0){
-            writeToScreen("<span class='canal'>"+$("#misCanales option:selected" ).text()+"</span> - Tu: " + myField.value);
+            writeToScreen("<span class='privado'>"+$("#misCanales option:selected" ).text()+"</span> - Tu: " + myField.value);
         }else{
-            writeToScreen("Tu: " + myField.value);
+            writeToScreen("<span class='general'>General</span> - Tu: " + myField.value);
         }
         myField.value = "";
     });
@@ -58,11 +58,11 @@ function onOpen() {
     } else {
         nombre = user.value;
     }
-    writeToScreen("Bienvenido " + nombre);
+    writeToScreen("<span class='info'>Bienvenido " + nombre + "</span>");
     mostrarChat();
 }
 function onClose() {
-    writeToScreen("DISCONNECTED");
+    writeToScreen("<span class='info'>DISCONNECTED</span>");
     setTimeout(mostrarLogin, 1000);
 }
 
@@ -72,12 +72,11 @@ function onMessage(evt) {
     var mensaje = JSON.parse(evt.data);
     switch (mensaje.tipo) {
         case "texto":
-            writeToScreen(mensaje.nombre_user + ": " + mensaje.mensaje);
+            writeToScreen("<span class='general'>General</span> - "+mensaje.nombre_user + ": " + mensaje.mensaje);
             break;
 
         case "info":
-            writeToScreen(mensaje.mensaje);
-            
+            writeToScreen("<span class='info'>"+mensaje.mensaje+"</span>");
             getUsuarios();
             break;
 
@@ -92,11 +91,12 @@ function onMessage(evt) {
             
         case "cargar":
             if(mensaje.mensaje == "error"){
-                writeToScreen("No hay mensajes");
+                writeToScreen("<span class='info'>No hay mensajes</span>");
             }else{
                 var mensajes = JSON.parse(mensaje.mensaje);
                 for (var mensaje in mensajes) {
-                    writeToScreen(formatoFecha(mensajes[mensaje].fecha)+" "+mensajes[mensaje].nombre_user+": "+mensajes[mensaje].mensaje);
+                    var canal = $("#misCanales option[value='"+mensajes[mensaje].id_canal+"']");
+                    writeToScreen("<span class='info'>"+formatoFecha(mensajes[mensaje].fecha)+" "+$(canal).text()+"</span><span class='textoCargado'> - "+mensajes[mensaje].nombre_user+": "+mensajes[mensaje].mensaje+"</span>");
                 }
             }
             break;
@@ -162,7 +162,7 @@ function onMessage(evt) {
             break;
             
         case "privado":
-            writeToScreen("<span class='canal'>"+mensaje.nombre_canal+"</span> - "+mensaje.nombre_user + ": " + mensaje.mensaje);
+            writeToScreen("<span class='privado'>"+mensaje.nombre_canal+"</span> - "+mensaje.nombre_user + ": " + mensaje.mensaje);
             break;
     }
     
