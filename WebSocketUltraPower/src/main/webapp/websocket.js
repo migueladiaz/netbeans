@@ -239,6 +239,7 @@ function getUsuarios() {
 function cargar(){
     var objeto = {
         tipo: "cargar",
+        nombre_user: nombre,
         inicio: inicio.value,
         fin: fin.value
     };
@@ -269,12 +270,16 @@ function crearCanal(){
 
 function formatoFecha(cadena){
     var fecha = new Date(cadena);
+    var dia = fecha.getDate();
     var mes = fecha.getMonth()+1;
     var hora = fecha.getHours();
     var minutos = fecha.getMinutes();
     var segundos = fecha.getSeconds();
     if(mes < 10){
         mes = "0"+mes;
+    }
+    if(dia < 10){
+        dia = "0"+dia;
     }
     if(hora < 10){
         hora = "0"+hora;
@@ -285,5 +290,5 @@ function formatoFecha(cadena){
     if(segundos < 10){
         segundos = "0"+segundos;
     }
-    return fecha.getDate()+"/"+mes+"/"+fecha.getFullYear()+" "+hora+":"+minutos+":"+segundos;
+    return dia+"/"+mes+"/"+fecha.getFullYear()+" "+hora+":"+minutos+":"+segundos;
 }

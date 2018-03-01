@@ -29,7 +29,13 @@ public class EpDAO {
     public final String queryAddUserGoogle="INSERT INTO registro (nombre, pass) VALUES (?,'google')";
     public final String queryGuardarMensaje="INSERT INTO mensajes (mensaje, fecha, id_canal, nombre_user) VALUES (?,?,?,?)";
     public final String queryGetCanales="SELECT * FROM canales";
-    public final String queryGetMensajes="SELECT * FROM mensajes WHERE fecha BETWEEN ? AND ?";
+    
+    public final String queryGetMensajes="SELECT m.* FROM mensajes m "
+                                       + "LEFT JOIN canales_users cu "
+                                       + "ON m.id_canal = cu.id_canal "
+                                       + "WHERE m.fecha BETWEEN ? AND ? "
+                                       + "AND (m.id_canal = 0 OR cu.user = ?)";
+    
     public final String queryGetMisCanales="SELECT c.* FROM canales c JOIN canales_users cu ON c.id = cu.id_canal WHERE cu.user = ?";
     public final String queryGetAdminCanal="SELECT user_admin FROM canales WHERE id = ?";
     public final String queryComprobarSuscripcion="SELECT user FROM canales_users WHERE id_canal = ? AND user = ?";
@@ -112,7 +118,7 @@ public class EpDAO {
         ArrayList<Mensaje> mensajes;
         try {
             JdbcTemplate jtm = new JdbcTemplate(DBConnection.getInstance().getDataSource());
-            mensajes =(ArrayList) jtm.query(queryGetMensajes, new BeanPropertyRowMapper(Mensaje.class), m.getInicio(), m.getFin());
+            mensajes =(ArrayList) jtm.query(queryGetMensajes, new BeanPropertyRowMapper(Mensaje.class), m.getInicio(), m.getFin(), m.getNombre_user());
             if(mensajes.isEmpty()){
                 mensajes = null;
             }
