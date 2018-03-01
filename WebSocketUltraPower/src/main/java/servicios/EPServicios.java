@@ -100,4 +100,9 @@ public class EPServicios {
         EpDAO dao = new EpDAO();
         return dao.addUserCanal(id, nombre);
     }
+    
+    public boolean addCanal(String nombreUser, String nombreCanal){
+        EpDAO dao = new EpDAO();
+        return dao.addCanal(nombreUser, nombreCanal) > 0;
+    }
 }

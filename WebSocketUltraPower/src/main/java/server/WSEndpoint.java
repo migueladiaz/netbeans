@@ -20,6 +20,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import model.Canal;
 import model.Mensaje;
 import utils.MessageDecoder;
 import utils.MessageEncoder;
@@ -90,9 +91,26 @@ public class WSEndpoint {
                 
                 switch(mensaje.getTipo()){
                     case "texto":
-                        for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
-                            if (!sessionQueManda.equals(sesionesMandar)) {
-                                sesionesMandar.getBasicRemote().sendObject(mensaje);
+                        if(mensaje.getId_canal() != 0){
+                            for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                                if (!sessionQueManda.equals(sesionesMandar)) {
+                                    ArrayList canales =(ArrayList) sesionesMandar.getUserProperties().get("misCanales");
+                                    if(canales != null){
+                                        for(int i = 0; i<canales.size(); i++){
+                                            Canal c =(Canal) canales.get(i);
+                                            if(c.getId() == mensaje.getId_canal()){
+                                                mensaje.setTipo("privado");
+                                                sesionesMandar.getBasicRemote().sendObject(mensaje);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }else{
+                            for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                                if (!sessionQueManda.equals(sesionesMandar)) {
+                                    sesionesMandar.getBasicRemote().sendObject(mensaje);
+                                }
                             }
                         }
                         break;
@@ -116,8 +134,9 @@ public class WSEndpoint {
                         break;
                         
                     case "misCanales":
-                        ArrayList misCanales = es.getMisCanales(mensaje.getNombre_user());
+                        ArrayList<Canal> misCanales = es.getMisCanales(mensaje.getNombre_user());
                         mensaje.setMensaje(mapper.writeValueAsString(misCanales));
+                        sessionQueManda.getUserProperties().put("misCanales", misCanales);
                         sessionQueManda.getBasicRemote().sendObject(mensaje);
                         break;
                         
@@ -166,6 +185,15 @@ public class WSEndpoint {
                                 sesionesMandar.getBasicRemote().sendObject(mensaje);
                             }
                         }
+                        break;
+                        
+                    case "crearCanal":
+                        if(es.addCanal(mensaje.getNombre_user(), mensaje.getMensaje())){
+                            mensaje.setMensaje("ok");
+                        }else{
+                            mensaje.setMensaje("error");
+                        }
+                        sessionQueManda.getBasicRemote().sendObject(mensaje);
                         break;
                 }
             } catch (Exception ex) {

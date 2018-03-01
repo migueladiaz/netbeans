@@ -35,11 +35,16 @@ $(document).ready(function () {
             mensaje: myField.value,
             fecha: fechaActual,
             id_canal: $("#misCanales").val(),
+            nombre_canal: $("#misCanales option:selected" ).text(),
             nombre_user: nombre,
             guardar: guardar.checked
         };
         websocket.send(JSON.stringify(objeto));
-        writeToScreen("Tu: " + myField.value);
+        if($("#misCanales").val()>0){
+            writeToScreen("<span class='canal'>"+$("#misCanales option:selected" ).text()+"</span> - Tu: " + myField.value);
+        }else{
+            writeToScreen("Tu: " + myField.value);
+        }
         myField.value = "";
     });
 });
@@ -78,7 +83,7 @@ function onMessage(evt) {
 
         case "canales":
             var canales = JSON.parse(mensaje.mensaje);
-            $("#listaCanales").append("<option disabled selected>Selecciona un canal</option><option disabled>-------------------------</option>");
+            $("#listaCanales").append("<option value='default' disabled selected>Selecciona un canal</option><option disabled>-------------------------</option>");
             for (var canal in canales) {
                 $("#listaCanales").append(new Option(canales[canal].nombre, canales[canal].id));
             }
@@ -144,6 +149,20 @@ function onMessage(evt) {
             
         case "rechazado":
             alert("El administrador ha rechazado tu solicitud");
+            break;
+            
+        case "crearCanal":
+            if(mensaje.mensaje == "ok"){
+                alert("Tu canal se ha creado correctamente");
+                getMisCanales();
+                getCanales();
+            }else{
+                alert("Ha ocurrido un error");
+            }
+            break;
+            
+        case "privado":
+            writeToScreen("<span class='canal'>"+mensaje.nombre_canal+"</span> - "+mensaje.nombre_user + ": " + mensaje.mensaje);
             break;
     }
     
@@ -235,7 +254,17 @@ function suscripcion(){
     };
     websocket.send(JSON.stringify(objeto));
     alert("Se ha enviado una solicitud al administrador del canal");
-    $("#listaCanales option[0]" ).attr("selected", "selected");
+    $("#listaCanales").val("default");
+}
+
+function crearCanal(){
+    var nombreCanal=prompt("Introduce el nombre del canal");
+    var objeto = {
+        tipo: "crearCanal",
+        nombre_user: nombre,
+        mensaje: nombreCanal
+    };
+    websocket.send(JSON.stringify(objeto));
 }
 
 function formatoFecha(cadena){

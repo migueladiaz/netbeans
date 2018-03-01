@@ -5,6 +5,11 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +32,9 @@ public class EpDAO {
     public final String queryGetMensajes="SELECT * FROM mensajes WHERE fecha BETWEEN ? AND ?";
     public final String queryGetMisCanales="SELECT c.* FROM canales c JOIN canales_users cu ON c.id = cu.id_canal WHERE cu.user = ?";
     public final String queryGetAdminCanal="SELECT user_admin FROM canales WHERE id = ?";
-    public final String queryComprobarSuscripcion="SELECT user FROM canales_users WHERE id_user = ? AND user = ?";
+    public final String queryComprobarSuscripcion="SELECT user FROM canales_users WHERE id_canal = ? AND user = ?";
     public final String queryAddUserCanal="INSERT INTO canales_users (id_canal, user) VALUES (?,?)";
+    public final String queryAddCanal="INSERT INTO canales (nombre, user_admin) VALUES (?,?)";
     
     public String getPass(String nombre) {
         String resultado = null;
@@ -172,5 +178,46 @@ public class EpDAO {
             registrado = false;
         }
         return registrado;
+    }
+    
+    public int addCanal(String nombreUser, String nombreCanal){
+        Connection con = null;
+        int filas = 0;
+        try {
+            
+            con = DBConnection.getInstance().getConnection();
+            con.setAutoCommit(false);
+            PreparedStatement stmt = con.prepareStatement(queryAddCanal, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, nombreCanal);
+            stmt.setString(2, nombreUser);
+            
+            filas += stmt.executeUpdate();
+            
+            int id = 0;
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            
+            stmt = con.prepareStatement(queryAddUserCanal);
+            stmt.setInt(1, id);
+            stmt.setString(2, nombreUser);
+
+            filas += stmt.executeUpdate();
+            con.commit();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                if (con!=null)
+                    con.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(EpDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            filas = 0;
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return filas;
     }
 }

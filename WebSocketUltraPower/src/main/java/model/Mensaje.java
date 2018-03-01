@@ -20,6 +20,7 @@ public class Mensaje {
     private boolean guardar;
     private Date inicio;
     private Date fin;
+    private String nombre_canal;
 
     public String getTipo() {
         return tipo;
@@ -83,5 +84,13 @@ public class Mensaje {
 
     public void setFin(Date fin) {
         this.fin = fin;
+    }
+
+    public String getNombre_canal() {
+        return nombre_canal;
+    }
+
+    public void setNombre_canal(String nombre_canal) {
+        this.nombre_canal = nombre_canal;
     }
 }
