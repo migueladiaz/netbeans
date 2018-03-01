@@ -153,7 +153,7 @@ function onMessage(evt) {
             
         case "crearCanal":
             if(mensaje.mensaje == "ok"){
-                alert("Tu canal se ha creado correctamente");
+                alert("Se ha creado el canal "+mensaje.nombre_canal);
                 getMisCanales();
                 getCanales();
             }else{
@@ -263,7 +263,7 @@ function crearCanal(){
     var objeto = {
         tipo: "crearCanal",
         nombre_user: nombre,
-        mensaje: nombreCanal
+        nombre_canal: nombreCanal
     };
     websocket.send(JSON.stringify(objeto));
 }

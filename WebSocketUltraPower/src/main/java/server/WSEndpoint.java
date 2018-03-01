@@ -188,12 +188,15 @@ public class WSEndpoint {
                         break;
                         
                     case "crearCanal":
-                        if(es.addCanal(mensaje.getNombre_user(), mensaje.getMensaje())){
+                        if(es.addCanal(mensaje.getNombre_user(), mensaje.getNombre_canal())){
                             mensaje.setMensaje("ok");
                         }else{
                             mensaje.setMensaje("error");
+                            sessionQueManda.getBasicRemote().sendObject(mensaje);
                         }
-                        sessionQueManda.getBasicRemote().sendObject(mensaje);
+                        for (Session sesionesMandar : sessionQueManda.getOpenSessions()) {
+                            sesionesMandar.getBasicRemote().sendObject(mensaje);
+                        }
                         break;
                 }
             } catch (Exception ex) {

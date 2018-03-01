@@ -31,7 +31,7 @@
                     <br>
                     <br>
                     <span>Contraseña: </span>
-                    <input type="text" id="pass">
+                    <input type="password" id="pass">
                     <br>
                     <br>
                     <input class="btn btn-secondary" type="button" onclick="conectar()" value="Conectar">
