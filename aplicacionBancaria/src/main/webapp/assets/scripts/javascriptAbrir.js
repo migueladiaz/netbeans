@@ -1,6 +1,18 @@
 var pestaña = 1;
 var titularExiste = false;
 var segundoTitular = false;
+var datos = {
+            nombre: null,
+            direccion: null,
+            telefono: null,
+            email: null,
+            fecha: null,
+            nombre2: null,
+            direccion2: null,
+            telefono2: null,
+            email2: null,
+            fecha2: null
+        };
 
 function siguiente(event){
     event.preventDefault();
@@ -159,6 +171,8 @@ $(document).ready(function() {
                             
                             $(".datosTitular").attr("disabled", true);
                             
+                            rellenarTitular1();
+                            
                             $("#sig").fadeIn(50);
                             titularExiste = true;
                         }
@@ -167,3 +181,21 @@ $(document).ready(function() {
         }
     });
 });
+
+$(document).ready(function () {
+    $("#enviarDatos").click(function() {
+        if(titularExiste){
+            rellenarTitular2();
+        }else{
+            rellenarTitular1();
+        }
+    });
+});
+
+function rellenarTitular1(){
+    datos.nombre = $("#nombre").val();
+    datos.direccion = $("#direccion").val();
+    datos.telefono = $("#telefono").val();
+    datos.email = $("#email").val();
+    datos.fecha = $("#fechaNacimiento").val();
+}
