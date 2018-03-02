@@ -13,7 +13,7 @@ public class Constantes {
 
     public static final String PARAMETRO_ACCION = "accion";
 
-    public static final String PINTAR_LOGIN = "login.jsp";
+    public static final String PINTAR_LOGIN = "index.jsp";
     public static final String PINTAR_LISTADO = "/listado.jsp";
     public static final String PINTAR_ABRIR = "/abrir.jsp";
 

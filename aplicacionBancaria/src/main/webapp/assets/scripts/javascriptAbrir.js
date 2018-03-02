@@ -1,10 +1,11 @@
 var pestaña = 1;
 var titularExiste = false;
+var segundoTitular = false;
 
 function siguiente(event){
     event.preventDefault();
     $("#ant").fadeIn(100);
-    if(pestaña<3){
+    if(pestaña<4){
         pestaña+=1;
         $("#"+pestaña).click();
     } 
@@ -15,6 +16,10 @@ function siguiente(event){
         if(titularExiste==true){
             $("#sig").fadeIn(100);
         }
+    }
+    
+    if(pestaña==4){
+        segundoTitular = confirm("¿Quieres introducir un segundo titular?");
     }
 }
 

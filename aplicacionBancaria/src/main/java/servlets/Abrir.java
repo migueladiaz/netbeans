@@ -84,6 +84,8 @@ public class Abrir extends HttpServlet {
                     c.setCl_ema(request.getParameter(ConstantesAbrir.PARAMETRO_EMAIL));
                     c.setCl_fna(fechaNacimiento);
                     c.setCl_fcl(fechaCliente);
+                    c.setCl_ncu(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_NUMERO_CUENTA)));
+                    //s.addTitular(c);
                     break;
             }
             

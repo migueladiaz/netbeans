@@ -15,6 +15,7 @@ public class ConstantesAbrir {
     
     public static final String ERROR_CUENTA_YA_EXISTE = "El número de cuenta ya existe";
     
+    public static final String PARAMETRO_NUMERO_CUENTA = "numCuenta";
     public static final String PARAMETRO_DNI = "dni";
     public static final String PARAMETRO_FECHA_NACIMIENTO = "fechaNacimiento";
     public static final String PARAMETRO_NOMBRE = "nombre";
