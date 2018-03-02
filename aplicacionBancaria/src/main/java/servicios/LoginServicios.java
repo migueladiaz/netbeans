@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
 import utils.Constantes;
+import utils.ConstantesLogin;
 import utils.PasswordHash;
 import utils.Utils;
 
@@ -39,7 +40,7 @@ public class LoginServicios {
             u.setCodigo(codigo);
             if (ld.registro(u)) {
                 MailServicios mail = new MailServicios();
-                mail.mandarMail(email, codigo, Constantes.ASUNTO_EMAIL);
+                mail.mandarMail(email, codigo, ConstantesLogin.ASUNTO_EMAIL);
                 registrado = true;
             }
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {

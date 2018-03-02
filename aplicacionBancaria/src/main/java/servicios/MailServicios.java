@@ -12,6 +12,7 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import utils.Constantes;
+import utils.ConstantesLogin;
 
 /**
  *
@@ -30,7 +31,7 @@ public class MailServicios {
             email.setStartTLSEnabled(true);
             email.setFrom(Configuration.getInstance().getMailFrom());
             email.setSubject(subject);
-            email.setContent(Constantes.CUERPO_EMAIL_1+codigo+Constantes.CUERPO_EMAIL_2, "text/html");
+            email.setContent(ConstantesLogin.CUERPO_EMAIL_1+codigo+ConstantesLogin.CUERPO_EMAIL_2, "text/html");
             email.addTo(to);
 
             email.send();

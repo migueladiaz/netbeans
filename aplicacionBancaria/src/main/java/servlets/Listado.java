@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servicios.Servicios;
 import utils.Constantes;
+import utils.ConstantesListado;
 
 /**
  *
  * @author Miguel
  */
-@WebServlet(name = "listado", urlPatterns = {"/banco/listado"})
+@WebServlet(name = "listado", urlPatterns = {Constantes.URL_LISTADO})
 public class Listado extends HttpServlet {
 
     /**
@@ -34,9 +35,9 @@ public class Listado extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String numCuenta = request.getParameter("cuenta");
-        String cadenaInicio = request.getParameter("inicio");
-        String cadenaFin = request.getParameter("fin");
+        String numCuenta = request.getParameter(ConstantesListado.PARAMETRO_CUENTA);
+        String cadenaInicio = request.getParameter(ConstantesListado.PARAMETRO_INICIO);
+        String cadenaFin = request.getParameter(ConstantesListado.PARAMETRO_FIN);
 
         if (numCuenta != null && cadenaInicio != null && cadenaFin != null) {
             Servicios s = new Servicios();
@@ -49,11 +50,11 @@ public class Listado extends HttpServlet {
                         response.getWriter().write(movimientos);
                     } else {
                         //response.setStatus(500);
-                        //response.getWriter().write(Constantes.ERROR_NO_MOVIMIENTOS);
-                        response.getWriter().write(s.error(Constantes.ERROR_NO_MOVIMIENTOS));
+                        //response.getWriter().write(ConstantesListado.ERROR_NO_MOVIMIENTOS);
+                        response.getWriter().write(s.error(ConstantesListado.ERROR_NO_MOVIMIENTOS));
                     }
                 } else {
-                    response.getWriter().write(s.error(Constantes.ERROR_CUENTA_NO_EXISTE));
+                    response.getWriter().write(s.error(ConstantesListado.ERROR_CUENTA_NO_EXISTE));
                 }
             } else {
                 response.getWriter().write(s.error(Constantes.ERROR));

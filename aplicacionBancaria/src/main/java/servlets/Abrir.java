@@ -16,12 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
 import servicios.Servicios;
 import utils.Constantes;
+import utils.ConstantesAbrir;
+import utils.ConstantesListado;
+import utils.ConstantesLogin;
 
 /**
  *
  * @author Miguel
  */
-@WebServlet(name = "Abrir", urlPatterns = {"/banco/abrir"})
+@WebServlet(name = "Abrir", urlPatterns = {Constantes.URL_ABRIR})
 public class Abrir extends HttpServlet {
 
     /**
@@ -37,48 +40,48 @@ public class Abrir extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String accion = request.getParameter("accion");
+        String accion = request.getParameter(Constantes.PARAMETRO_ACCION);
         
         if(accion != null){
             Servicios s = new Servicios();
-            String numCuenta = request.getParameter("cuenta");
-            String dni = request.getParameter("dni");
+            String numCuenta = request.getParameter(ConstantesListado.PARAMETRO_CUENTA);
+            String dni = request.getParameter(ConstantesAbrir.PARAMETRO_DNI);
             
             switch(accion){
-                case "comprobarCuenta":
+                case ConstantesAbrir.CASE_COMPROBAR_CUENTA:
                     if(s.comprobarNumCuenta(numCuenta)){
                         if(!s.validarCuenta(numCuenta)){
-                            response.getWriter().write(Constantes.DISPONIBLE);
+                            response.getWriter().write(ConstantesLogin.DISPONIBLE);
                         } else {
-                            response.getWriter().write(s.error(Constantes.ERROR_CUENTA_YA_EXISTE));
+                            response.getWriter().write(s.error(ConstantesAbrir.ERROR_CUENTA_YA_EXISTE));
                         }
                     } else {
                         response.getWriter().write(s.error(Constantes.ERROR));
                     }
                     break;
                     
-                case "comprobarTitular":
+                case ConstantesAbrir.CASE_COMPROBAR_TITULAR:
                     if (s.comprobarDni(dni)) {
                         if (s.comprobarTitularAlta(dni)) {
                             response.getWriter().write(s.getCliente(dni));
                         } else {
-                            response.getWriter().write(Constantes.PEDIR_DATOS);
+                            response.getWriter().write(ConstantesAbrir.PEDIR_DATOS);
                         }
                     } else {
                         response.getWriter().write(s.error(Constantes.ERROR));
                     }
                     break;
                     
-                case "guardarTitular":
+                case ConstantesAbrir.CASE_GUARDAR_TITULAR:
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"), dtf);
+                    LocalDate fechaNacimiento = LocalDate.parse(request.getParameter(ConstantesAbrir.PARAMETRO_FECHA_NACIMIENTO), dtf);
                     LocalDate fechaCliente = LocalDate.now();
                     Cliente c = new Cliente();
                     c.setCl_dni(dni);
-                    c.setCl_nom(request.getParameter("nombre"));
-                    c.setCl_dir(request.getParameter("direccion"));
-                    c.setCl_tel(Integer.parseInt(request.getParameter("telefono")));
-                    c.setCl_ema(request.getParameter("email"));
+                    c.setCl_nom(request.getParameter(ConstantesAbrir.PARAMETRO_NOMBRE));
+                    c.setCl_dir(request.getParameter(ConstantesAbrir.PARAMETRO_DIRECCION));
+                    c.setCl_tel(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_TELEFONO)));
+                    c.setCl_ema(request.getParameter(ConstantesAbrir.PARAMETRO_EMAIL));
                     c.setCl_fna(fechaNacimiento);
                     c.setCl_fcl(fechaCliente);
                     break;

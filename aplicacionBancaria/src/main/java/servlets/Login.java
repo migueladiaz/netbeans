@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servicios.LoginServicios;
 import utils.Constantes;
+import utils.ConstantesLogin;
 
 /**
  *
  * @author Miguel
  */
-@WebServlet(name = "Login", urlPatterns = {"/login"})
+@WebServlet(name = "Login", urlPatterns = {Constantes.URL_LOGIN})
 public class Login extends HttpServlet {
 
     /**
@@ -33,7 +34,7 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String accion = request.getParameter("accion");
+        String accion = request.getParameter(Constantes.PARAMETRO_ACCION);
 
         if (accion != null) {
             LoginServicios ls = new LoginServicios();
@@ -41,71 +42,70 @@ public class Login extends HttpServlet {
             String pass;
 
             switch (accion) {
-                case "comprobarEmail":
-                    email = request.getParameter("email");
+                case ConstantesLogin.CASE_COMPROBAR_EMAIL:
+                    email = request.getParameter(ConstantesLogin.PARAMETRO_EMAIL);
 
                     if (ls.comprobarEmail(email)) {
-                        response.getWriter().print(Constantes.OCUPADO);
+                        response.getWriter().print(ConstantesLogin.OCUPADO);
                     } else {
-                        response.getWriter().print(Constantes.DISPONIBLE);
+                        response.getWriter().print(ConstantesLogin.DISPONIBLE);
                     }
                     break;
 
-                case "login":
-                    email = request.getParameter("emaillogin");
-                    pass = request.getParameter("passlogin");
+                case ConstantesLogin.CASE_LOGIN:
+                    email = request.getParameter(ConstantesLogin.PARAMETRO_EMAIL_LOGIN);
+                    pass = request.getParameter(ConstantesLogin.PARAMETRO_PASS_LOGIN);
 
                     switch(ls.login(email, pass)){
                         case -1:
-                            request.setAttribute("mensaje2", Constantes.ERROR);
+                            request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE2, Constantes.ERROR);
                             break;
                             
                         case 0:
-                            request.setAttribute("mensaje2", Constantes.ERROR_USER_PASS);
+                            request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE2, ConstantesLogin.ERROR_USER_PASS);
                             break;
                             
                         case 1:
-                            request.getSession().setAttribute("emailUsuario", email);
-                            response.sendRedirect("banco/listado");
+                            request.getSession().setAttribute(ConstantesLogin.ATRIBUTO_EMAIL_USUARIO, email);
+                            response.sendRedirect(Constantes.REDIRIGIR_LISTADO);
                             return;
-                            //break;
                             
                         case 2:
-                            request.setAttribute("mensaje2", Constantes.ERROR_CUENTA_ACTIVADA);
+                            request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE2, ConstantesLogin.ERROR_CUENTA_ACTIVADA);
                             break;
                     }
                     break;
 
-                case "registro":
-                    email = request.getParameter("emailregistro");
-                    pass = request.getParameter("passregistro");
+                case ConstantesLogin.CASE_REGISTRO:
+                    email = request.getParameter(ConstantesLogin.PARAMETRO_EMAIL_REGISTRO);
+                    pass = request.getParameter(ConstantesLogin.PARAMETRO_PASS_REGISTRO);
                     
                     if (ls.registro(email, pass)) {
-                        request.setAttribute("mensaje", Constantes.REGISTRO_COMPLETO);
+                        request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE, ConstantesLogin.REGISTRO_COMPLETO);
                     } else {
-                        request.setAttribute("mensaje", Constantes.ERROR);
+                        request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE, Constantes.ERROR);
                     }
                     
                     break;
                     
-                case "activar":
-                    String codigo = request.getParameter("codigo");
+                case ConstantesLogin.CASE_ACTIVAR:
+                    String codigo = request.getParameter(ConstantesLogin.PARAMETRO_CODIGO);
                     
                     if(ls.activar(codigo)){
-                        request.setAttribute("mensaje", Constantes.CUENTA_ACTIVADA);
+                        request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE, ConstantesLogin.CUENTA_ACTIVADA);
                     }else{
-                        request.setAttribute("mensaje", Constantes.ERROR);
+                        request.setAttribute(ConstantesLogin.ATRIBUTO_MENSAJE, Constantes.ERROR);
                     }
                     break;
                 
-                case "logout": 
+                case ConstantesLogin.CASE_LOGOUT: 
                     request.getSession().invalidate();
                     break;
             }
         } else {
             request.getRequestDispatcher(Constantes.PINTAR_LOGIN).forward(request, response);
         }
-        if(!accion.equals("comprobarEmail")){
+        if(!accion.equals(ConstantesLogin.CASE_COMPROBAR_EMAIL)){
             request.getRequestDispatcher(Constantes.PINTAR_LOGIN).forward(request, response);
         }
     }
