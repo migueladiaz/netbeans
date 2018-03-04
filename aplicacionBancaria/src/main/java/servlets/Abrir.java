@@ -7,7 +7,9 @@ package servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +19,6 @@ import model.Cliente;
 import servicios.Servicios;
 import utils.Constantes;
 import utils.ConstantesAbrir;
-import utils.ConstantesListado;
 import utils.ConstantesLogin;
 
 /**
@@ -44,7 +45,7 @@ public class Abrir extends HttpServlet {
         
         if(accion != null){
             Servicios s = new Servicios();
-            String numCuenta = request.getParameter(ConstantesListado.PARAMETRO_CUENTA);
+            String numCuenta = request.getParameter(ConstantesAbrir.PARAMETRO_NUMERO_CUENTA);
             String dni = request.getParameter(ConstantesAbrir.PARAMETRO_DNI);
             
             switch(accion){
@@ -73,19 +74,33 @@ public class Abrir extends HttpServlet {
                     break;
                     
                 case ConstantesAbrir.CASE_GUARDAR_TITULAR:
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate fechaNacimiento = LocalDate.parse(request.getParameter(ConstantesAbrir.PARAMETRO_FECHA_NACIMIENTO), dtf);
                     LocalDate fechaCliente = LocalDate.now();
                     Cliente c = new Cliente();
                     c.setCl_dni(dni);
-                    c.setCl_nom(request.getParameter(ConstantesAbrir.PARAMETRO_NOMBRE));
-                    c.setCl_dir(request.getParameter(ConstantesAbrir.PARAMETRO_DIRECCION));
-                    c.setCl_tel(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_TELEFONO)));
-                    c.setCl_ema(request.getParameter(ConstantesAbrir.PARAMETRO_EMAIL));
-                    c.setCl_fna(fechaNacimiento);
-                    c.setCl_fcl(fechaCliente);
-                    c.setCl_ncu(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_NUMERO_CUENTA)));
-                    //s.addTitular(c);
+                    c.setCl_fcl(Date.from(fechaCliente.atStartOfDay().toInstant(ZoneOffset.UTC)));
+                    c.setCl_ncu(numCuenta);
+                    
+                    int importe = Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_IMPORTE));
+                    boolean existe = Boolean.parseBoolean(request.getParameter(ConstantesAbrir.PARAMETRO_EXISTE));
+                    boolean segundoTitular = Boolean.parseBoolean(request.getParameter(ConstantesAbrir.PARAMETRO_SEGUNDO_TITULAR));
+                    
+                    if(!existe){
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        String fecha = request.getParameter(ConstantesAbrir.PARAMETRO_FECHA_NACIMIENTO);
+                        Date fechaNacimiento = new Date(fecha);
+                        
+                        c.setCl_nom(request.getParameter(ConstantesAbrir.PARAMETRO_NOMBRE));
+                        c.setCl_dir(request.getParameter(ConstantesAbrir.PARAMETRO_DIRECCION));
+                        c.setCl_tel(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_TELEFONO)));
+                        c.setCl_ema(request.getParameter(ConstantesAbrir.PARAMETRO_EMAIL));
+                        c.setCl_fna(fechaNacimiento);
+                    }
+                    
+                    if(s.addTitular(c, importe, existe, segundoTitular)){
+                        response.getWriter().write(ConstantesAbrir.CODIGO_OK);
+                    }else{
+                        response.getWriter().write(s.error(ConstantesAbrir.ERROR_GUARDAR_DATOS));
+                    }
                     break;
             }
             

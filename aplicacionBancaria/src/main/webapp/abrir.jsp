@@ -144,12 +144,10 @@
                         <button id="guardarDatos" class="btn btn-dark">Guardar</button>
                     </div>
                     <div id="menu5" class="container tab-pane">
-                        <div id="introducirSegundo">
-                            <h3>¿Quieres registrar un segundo titular?</h3>
-                            <br>
-                            <button id="no" class="btn btn-dark">No</button>
-                            <button id="si" class="btn btn-dark">Si</button>
-                        </div>
+                        <h3>¿Quieres registrar un segundo titular?</h3>
+                        <br>
+                        <button id="no" class="btn btn-dark">No</button>
+                        <button id="si" class="btn btn-dark">Si</button>
                     </div>
                     <div id="menu6" class="container tab-pane">
                         <h3>La cuenta se ha creado correctamente</h3>

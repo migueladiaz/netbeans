@@ -15,7 +15,7 @@ public class Movimiento {
     private String mo_hor;
     private String mo_des;
     private int mo_imp;
-    private int cu_sal;
+    private int mo_sal;
 
     public String getMo_fec() {
         return mo_fec;
@@ -49,12 +49,12 @@ public class Movimiento {
         this.mo_hor = mo_hor;
     }
 
-    public int getCu_sal() {
-        return cu_sal;
+    public int getMo_sal() {
+        return mo_sal;
     }
 
-    public void setCu_sal(int cu_sal) {
-        this.cu_sal = cu_sal;
+    public void setMo_sal(int mo_sal) {
+        this.mo_sal = mo_sal;
     }
 
     public int getMo_ncu() {

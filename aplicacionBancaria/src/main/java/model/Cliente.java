@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -17,9 +17,9 @@ public class Cliente {
     private String cl_dir;
     private int cl_tel;
     private String cl_ema;
-    private LocalDate cl_fna;
-    private LocalDate cl_fcl;
-    private int cl_ncu;
+    private Date cl_fna;
+    private Date cl_fcl;
+    private String cl_ncu;
     private int cl_sal;
 
     public String getCl_dni() {
@@ -62,27 +62,27 @@ public class Cliente {
         this.cl_ema = cl_ema;
     }
 
-    public LocalDate getCl_fna() {
+    public Date getCl_fna() {
         return cl_fna;
     }
 
-    public void setCl_fna(LocalDate cl_fna) {
+    public void setCl_fna(Date cl_fna) {
         this.cl_fna = cl_fna;
     }
 
-    public LocalDate getCl_fcl() {
+    public Date getCl_fcl() {
         return cl_fcl;
     }
 
-    public void setCl_fcl(LocalDate cl_fcl) {
+    public void setCl_fcl(Date cl_fcl) {
         this.cl_fcl = cl_fcl;
     }
 
-    public int getCl_ncu() {
+    public String getCl_ncu() {
         return cl_ncu;
     }
 
-    public void setCl_ncu(int cl_ncu) {
+    public void setCl_ncu(String cl_ncu) {
         this.cl_ncu = cl_ncu;
     }
 

@@ -9,6 +9,7 @@ import DAO.AbrirDAO;
 import DAO.ListadoDAO;
 import com.google.gson.Gson;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,5 +102,35 @@ public class Servicios {
     public String getCliente(String dni){
         AbrirDAO dao = new AbrirDAO();
         return new Gson().toJson(dao.getCliente(dni));
+    }
+    
+    public String parseTiempo(LocalDateTime fechaActual){
+        String tiempo = "";
+        
+        if(fechaActual.getHour()<10){
+            tiempo = "0"+fechaActual.getHour();
+        }else{
+            tiempo = Integer.toString(fechaActual.getHour());
+        }
+        
+        if(fechaActual.getMinute()<10){
+            tiempo = tiempo + "0" + fechaActual.getMinute();
+        }else{
+            tiempo = tiempo + Integer.toString(fechaActual.getMinute());
+        }
+        
+        if(fechaActual.getSecond()<10){
+            tiempo = tiempo + "0" + fechaActual.getSecond();
+        }else{
+            tiempo = tiempo + Integer.toString(fechaActual.getSecond());
+        }
+        return tiempo;
+    }
+    
+    public boolean addTitular(Cliente c, int importe, boolean existe, boolean segundoTitular){
+        AbrirDAO dao = new AbrirDAO();
+        LocalDateTime fechaActual = LocalDateTime.now();
+        String tiempo = parseTiempo(fechaActual);
+        return dao.addTitular(c, importe, tiempo, existe, segundoTitular);
     }
 }

@@ -64,9 +64,7 @@ public class FiltroLogin implements Filter {
         Throwable problem = null;
         try {
             if (((HttpServletRequest) request).getSession().getAttribute("emailUsuario") != null) {
-
                 chain.doFilter(request, response);
-                doAfterProcessing(request, response);
             } else {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 httpResponse.sendRedirect("../login");
@@ -77,6 +75,7 @@ public class FiltroLogin implements Filter {
             t.printStackTrace();
         }
         
+        doAfterProcessing(request, response);
         if (problem != null) {
             if (problem instanceof ServletException) {
                 throw (ServletException) problem;
