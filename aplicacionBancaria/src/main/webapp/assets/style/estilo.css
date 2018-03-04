@@ -127,6 +127,7 @@
 
 #tablaDatos{
     margin: auto;
+    margin-top: -20px;
     text-align: left;
 }
 
@@ -146,6 +147,16 @@
     margin-top: 40px; 
 }
 
-#enviarDatos{
-    display:none;
+#si{
+    width: 80px;
+    margin: 0 20px;
+}
+
+#no{
+    width: 80px;
+    margin: 0 20px;
+}
+
+#introducirSegundo{
+    display: none;
 }

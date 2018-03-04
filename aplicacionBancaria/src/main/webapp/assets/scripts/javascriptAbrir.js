@@ -1,50 +1,26 @@
 var pestaña = 1;
-var titularExiste = false;
-var segundoTitular = false;
+var titularExiste;
+var titularGuardado = false;
+var dni = 0;
 var datos = {
-            nombre: null,
-            direccion: null,
-            telefono: null,
-            email: null,
-            fecha: null,
-            nombre2: null,
-            direccion2: null,
-            telefono2: null,
-            email2: null,
-            fecha2: null
-        };
+    existe: null,
+    cuenta: null,
+    importe: null,
+    dni: null,
+    nombre: null,
+    direccion: null,
+    telefono: null,
+    email: null,
+    fecha: null
+};
 
 function siguiente(event){
     event.preventDefault();
-    $("#ant").fadeIn(100);
-    if(pestaña<4){
-        pestaña+=1;
-        $("#"+pestaña).click();
-    } 
+    
+    pestaña+=1;
+    $("#"+pestaña).click();
     
     $("#sig").fadeOut(100);
-    
-    if(pestaña==3){
-        if(titularExiste==true){
-            $("#sig").fadeIn(100);
-        }
-    }
-    
-    if(pestaña==4){
-        segundoTitular = confirm("¿Quieres introducir un segundo titular?");
-    }
-}
-
-function anterior(event){
-    event.preventDefault();
-    $("#sig").fadeIn(100);
-    if(pestaña>1){
-        pestaña-=1;
-        $("#"+pestaña).click();
-    } 
-    if(pestaña == 1) {
-        $("#ant").fadeOut(100);
-    }
 }
 
 $(document).ready(function () {
@@ -67,6 +43,10 @@ $(document).ready(function () {
     
     $("#numDni").focus(function(){
         $("#errorDni").fadeOut(100);
+    });
+    
+    $(".datosTitular").focus(function(){
+        $("#errorDatos").fadeOut(100);
     });
 });
 
@@ -100,11 +80,16 @@ function validarDni(){
     var error = false;
     
     if (!/^[0-9]{8}[A-Z]$/.test(numDni)) {
+        $("#errorDni").html("El DNI no es correcto.");
+        error = true;
+    }
+    
+    if(numDni==dni){
+        $("#errorDni").html("No puedes introducir el mismo DNI otra vez.");
         error = true;
     }
     
     if(error == true){
-        $("#errorDni").html("El DNI no es correcto.");
         $("#errorDni").fadeIn(100);
         return false;
     }else{
@@ -144,14 +129,12 @@ $(document).ready(function() {
                 function(data, status) {
                     if(data=="pedirDatos"){
                         titularExiste = false;
+                        
                         $(".datosTitular").val("");
                         $(".datosTitular").attr("disabled", false);
-                        $("#enviarDatos").fadeIn(50);
                         $("#sig").fadeIn(50);
                     }else{
                         var datos = JSON.parse(data);
-                        
-                        $("#enviarDatos").fadeOut(50);
                         
                         if(datos[0]=="500"){
                             $("#errorDni").html(datos[1]);
@@ -170,11 +153,9 @@ $(document).ready(function() {
                             $("#fechaNacimiento").val(fecha);
                             
                             $(".datosTitular").attr("disabled", true);
-                            
-                            rellenarTitular1();
+                            titularExiste = true;
                             
                             $("#sig").fadeIn(50);
-                            titularExiste = true;
                         }
                     }
                 });
@@ -182,20 +163,85 @@ $(document).ready(function() {
     });
 });
 
+//AJAX para guardar cliente
 $(document).ready(function () {
-    $("#enviarDatos").click(function() {
-        if(titularExiste){
-            rellenarTitular2();
+    $("#guardarDatos").click(function() {
+        $("#errorDatos").fadeOut(100);
+        if(validarDatosTitular()){
+            var continuar = confirm("Se va a proceder a guardar los datos. ¿Quieres continuar?");
+            if(continuar){
+                datos.existe = titularExiste;
+                datos.cuenta = $("#numCuenta").val();
+                datos.importe = $("#importe").val();
+                datos.dni = $("#numDni").val();
+                datos.nombre = $("#nombre").val();
+                datos.direccion = $("#direccion").val();
+                datos.telefono = $("#telefono").val();
+                datos.email = $("#email").val();
+                datos.fecha = $("#fechaNacimiento").val();
+                if(titularGuardado==false){
+                    titularGuardado=true;
+                    dni = $("#numDni").val();
+                    pestaña+=1;
+                    $("#"+pestaña).click();
+                    $("#introducirSegundo").fadeIn(50);
+                }else{
+                    pestaña=6;
+                    $("#"+pestaña).click();
+                }
+            }
         }else{
-            rellenarTitular1();
+            $("#errorDatos").html("Rellena todos los datos");
+            $("#errorDatos").fadeIn(100);
+        }
+        
+    });
+});
+
+$(document).ready(function () {
+    //Devuelve a la pestaña para introducir un nuevo titular
+    $("#si").click(function() {
+        $("#numDni").val("");
+        pestaña=3;
+        $("#"+pestaña).click();
+    });
+    
+    //Avanza a la siguiente pestaña si no se quiere introducir un nuevo titular
+    $("#no").click(function() {
+        pestaña+=1;
+        $("#"+pestaña).click();
+    });
+    
+    //Resetea todos los parametros para poder crear otra cuenta nueva
+    $("#finalizar").click(function() {
+        $("#numCuenta").val("");
+        $("#numDni").val("");
+        $("#importe").val("");
+        titularGuardado=false;
+        dni = 0;
+        pestaña=1;
+        $("#"+pestaña).click();
+    });
+    
+    //Comprueba que el importe es mayor que 0 cada vez que se cambia el valor del campo
+    $("#importe").on("input",function(){
+        if($("#importe").val()>0){
+            $("#sig").fadeIn(100);
+            $("#errorImporte").fadeOut(100);
+        }else{
+            $("#errorImporte").html("El importe introducido no es correcto");
+            $("#errorImporte").fadeIn(100);
+            $("#sig").fadeOut(100);
         }
     });
 });
 
-function rellenarTitular1(){
-    datos.nombre = $("#nombre").val();
-    datos.direccion = $("#direccion").val();
-    datos.telefono = $("#telefono").val();
-    datos.email = $("#email").val();
-    datos.fecha = $("#fechaNacimiento").val();
+function validarDatosTitular(){
+    if($("#nombre").val()!="" && $("#direccion").val()!="" && $("#telefono").val()!="" && $("#email").val()!="" && $("#fechaNacimiento").val()!=""){
+        return true;
+    }else{
+        $("#errorDatos").html("Rellena todos los campos");
+        $("#errorDatos").fadeIn(100);
+        return false;
+    }
 }

@@ -61,6 +61,15 @@
                     <li class="nav-item">
                         <a id="3" class="nav-link" data-toggle="tab" href="#menu3">Paso 3</a>
                     </li>
+                    <li class="nav-item">
+                        <a id="4" class="nav-link" data-toggle="tab" href="#menu4">Paso 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="5" class="nav-link" data-toggle="tab" href="#menu5">Paso 5</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="6" class="nav-link" data-toggle="tab" href="#menu6">Paso 6</a>
+                    </li>
                 </ul>
 
                 <div class="tab-content">
@@ -73,6 +82,12 @@
                         <button id="comprobarCuenta" class="btn btn-dark">Comprobar</button>
                     </div>
                     <div id="menu2" class="container tab-pane fade">
+                        <h3>Introduce el importe inicial</h3>
+                        <span id="errorImporte" class="errorFormulario"></span>
+                        <br>
+                        <input type="text" id="importe" placeholder="Importe">
+                    </div>
+                    <div id="menu3" class="container tab-pane fade">
                         <h3>Introduce el DNI del titular de la cuenta</h3>
                         <span id="errorDni" class="errorFormulario"></span>
                         <br>
@@ -80,7 +95,7 @@
                         <br>
                         <button id="comprobarDni" class="btn btn-dark">Comprobar</button>
                     </div>
-                    <div id="menu3" class="container tab-pane fade">
+                    <div id="menu4" class="container tab-pane fade">
                         <h3>Introduce los datos del titular</h3>
                         <table id="tablaDatos">
                             <tr>
@@ -124,13 +139,27 @@
                                 </td>
                             </tr>
                         </table>
-                        <button id="enviarDatos" class="btn btn-dark">Enviar</button>
+                        <span id="errorDatos" class="errorFormulario"></span>
+                        <br>
+                        <button id="guardarDatos" class="btn btn-dark">Guardar</button>
+                    </div>
+                    <div id="menu5" class="container tab-pane">
+                        <div id="introducirSegundo">
+                            <h3>¿Quieres registrar un segundo titular?</h3>
+                            <br>
+                            <button id="no" class="btn btn-dark">No</button>
+                            <button id="si" class="btn btn-dark">Si</button>
+                        </div>
+                    </div>
+                    <div id="menu6" class="container tab-pane">
+                        <h3>La cuenta se ha creado correctamente</h3>
+                        <br>
+                        <button id="finalizar" class="btn btn-dark">Finalizar</button>
                     </div>
                 </div>
             </div>
             <br>
             <br>
-            <a id="ant" href="#" onclick="anterior(event)">Anterior</a>
             <a id="sig" href="#" onclick="siguiente(event)">Siguiente</a>
             <hr>
         </div>
