@@ -54,7 +54,7 @@
                     <input type="text" id="numCuenta" name="numCuenta">
                     <br>
                     <br>
-                    <lablel for="cuenta">Importe: </lablel>
+                    <lablel for="numImporte">Importe: </lablel>
                     <input type="text" id="numImporte" name="numImporte" value="10" disabled>
                     <input type="range" id="rangoImporte" name="rangoImporte" min="10" max="1000" step="10" value="10" oninput="numImporte.value = rangoImporte.value">
                     <br>
@@ -63,10 +63,11 @@
                     <input type="text" id="descripcion" name="descripcion">
                     <br>
                     <br>
-                    <input type="button" id="boton" value="Ingresar" class="btn btn-lg btn-block btn-secondary enviar">
-                    <input type="button" id="boton2" value="Retirar" class="btn btn-lg btn-block btn-dark enviar">
+                    <input type="button" id="ingreso" value="Ingresar" class="btn btn-lg btn-secondary enviar">
+                    <input type="button" id="reintegro" value="Retirar" class="btn btn-lg btn-dark enviar">
                 </form>
             </div>
+            <br>
             <h3 id="info"></h3>
         </div>
     </body>

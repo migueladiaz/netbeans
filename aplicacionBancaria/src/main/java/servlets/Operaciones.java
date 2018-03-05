@@ -42,6 +42,7 @@ public class Operaciones extends HttpServlet {
             Servicios s = new Servicios();
             Movimiento m = new Movimiento();
             String numCuenta = request.getParameter(ConstantesOperaciones.PARAMETRO_CUENTA);
+            String asdf = request.getParameter(ConstantesOperaciones.PARAMETRO_IMPORTE);
 
             switch (accion){
                 case ConstantesOperaciones.CASE_COMPROBAR_CUENTA:

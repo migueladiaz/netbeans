@@ -27,7 +27,7 @@ public class OperacionesDAO {
             + "OR c.cl_dni = (SELECT cu_dn2 FROM cuentas WHERE cu_ncu = ?)";
     
     private final String queryAddMovimiento = "INSERT INTO movimientos (mo_ncu, mo_fec, mo_hor, mo_des, mo_imp, mo_sal)"
-            + " VALUES (?,?,?,?,?,(SELECT cu_sal FROM cuentas WHERE cu_ncu = ?) + ?)";
+            + " VALUES (?,?,?,?,?,(SELECT cu_sal FROM cuentas WHERE cu_ncu = ?))";
     
     
     public boolean addMovimiento(Movimiento m){
@@ -55,12 +55,11 @@ public class OperacionesDAO {
             
             stmt = con.prepareStatement(queryAddMovimiento);
             stmt.setString(1, m.getMo_ncu());
-            stmt.setDate(2, (java.sql.Date) new Date());
+            stmt.setDate(2, new java.sql.Date(new Date().getTime()));
             stmt.setString(3, m.getMo_hor());
             stmt.setString(4, m.getMo_des());
             stmt.setInt(5, m.getMo_imp());
             stmt.setString(6, m.getMo_ncu());
-            stmt.setInt(7, m.getMo_imp());
 
             stmt.executeUpdate();
             

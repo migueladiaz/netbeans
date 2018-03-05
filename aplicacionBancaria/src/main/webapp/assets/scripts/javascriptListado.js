@@ -108,10 +108,15 @@ function formatoImporte(importe) {
     var cadena;
     
     if (importe > 0) {
-        cadena = "<span class='saldo'>" + importe + "€</span>";
+        cadena = "<span class='positivo'>" + importe + "€</span>";
     } else {
         cadena = "<span class='negativo'>" + importe + "€</span>";
     }
     
     return cadena;
+}
+
+function formatoHora(cadena){
+    var hora = cadena.charAt(0)+cadena.charAt(1)+":"+cadena.charAt(2)+cadena.charAt(3)+":"+cadena.charAt(4)+cadena.charAt(5);
+    return hora;
 }
