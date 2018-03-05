@@ -19,7 +19,6 @@ import model.Cliente;
 import servicios.Servicios;
 import utils.Constantes;
 import utils.ConstantesAbrir;
-import utils.ConstantesLogin;
 
 /**
  *
@@ -52,7 +51,7 @@ public class Abrir extends HttpServlet {
                 case ConstantesAbrir.CASE_COMPROBAR_CUENTA:
                     if(s.comprobarNumCuenta(numCuenta)){
                         if(!s.validarCuenta(numCuenta)){
-                            response.getWriter().write(ConstantesLogin.DISPONIBLE);
+                            response.getWriter().write(Constantes.DISPONIBLE);
                         } else {
                             response.getWriter().write(s.error(ConstantesAbrir.ERROR_CUENTA_YA_EXISTE));
                         }
@@ -97,7 +96,7 @@ public class Abrir extends HttpServlet {
                     }
                     
                     if(s.addTitular(c, importe, existe, segundoTitular)){
-                        response.getWriter().write(ConstantesAbrir.CODIGO_OK);
+                        response.getWriter().write(Constantes.CODIGO_OK);
                     }else{
                         response.getWriter().write(s.error(ConstantesAbrir.ERROR_GUARDAR_DATOS));
                     }

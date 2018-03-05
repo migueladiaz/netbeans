@@ -12,7 +12,6 @@ package utils;
 public class ConstantesAbrir {
     
     public static final String PEDIR_DATOS = "pedirDatos";
-    public static final String CODIGO_OK = "200";
     
     public static final String ERROR_CUENTA_YA_EXISTE = "El número de cuenta ya existe";
     public static final String ERROR_GUARDAR_DATOS = "Ocurrió un error al guardar los datos";

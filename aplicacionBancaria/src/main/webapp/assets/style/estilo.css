@@ -168,3 +168,10 @@
     width: 80px;
     margin: 0 20px;
 }
+
+/*OPERACIONES*/
+
+.enviar{
+    display: none;
+}
+

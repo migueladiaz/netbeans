@@ -7,6 +7,7 @@ package servicios;
 
 import DAO.AbrirDAO;
 import DAO.ListadoDAO;
+import DAO.OperacionesDAO;
 import com.google.gson.Gson;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
+import model.Movimiento;
 
 /**
  *
@@ -132,5 +134,14 @@ public class Servicios {
         LocalDateTime fechaActual = LocalDateTime.now();
         String tiempo = parseTiempo(fechaActual);
         return dao.addTitular(c, importe, tiempo, existe, segundoTitular);
+    }
+    
+    public boolean addMovimiento(Movimiento m){
+        OperacionesDAO dao = new OperacionesDAO();
+        LocalDateTime fechaActual = LocalDateTime.now();
+        String hora = parseTiempo(fechaActual);
+        m.setMo_hor(hora);
+        
+        return dao.addMovimiento(m);
     }
 }

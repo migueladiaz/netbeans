@@ -5,12 +5,13 @@
  */
 package model;
 
+
 /**
  *
  * @author Miguel
  */
 public class Movimiento {
-    private int mo_ncu;
+    private String mo_ncu;
     private String mo_fec;
     private String mo_hor;
     private String mo_des;
@@ -57,11 +58,11 @@ public class Movimiento {
         this.mo_sal = mo_sal;
     }
 
-    public int getMo_ncu() {
+    public String getMo_ncu() {
         return mo_ncu;
     }
 
-    public void setMo_ncu(int mo_ncu) {
+    public void setMo_ncu(String mo_ncu) {
         this.mo_ncu = mo_ncu;
     }
 }

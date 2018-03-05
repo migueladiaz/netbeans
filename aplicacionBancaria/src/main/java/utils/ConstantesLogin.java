@@ -22,9 +22,6 @@ public class ConstantesLogin {
             + "</html>";
     public static final String ASUNTO_EMAIL = "Registro aplicación bancaria";
 
-    public static final String OCUPADO = "ocupado";
-    public static final String DISPONIBLE = "disponible";
-
     public static final String REGISTRO_COMPLETO = "Usuario registrado con éxito. Te hemos enviado un email para activar tu cuenta.";
     public static final String CUENTA_ACTIVADA = "Tu cuenta ha sido activada.";
 

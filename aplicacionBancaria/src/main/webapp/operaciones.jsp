@@ -48,10 +48,10 @@
 
             <div id="formulario">
                 <form method="post" id="datos">
-                    <span id="errorCuenta" class="errorFormulario">El número de cuenta no es correcto.</span>
+                    <span id="errorCuenta" class="errorFormulario"></span>
                     <br>
-                    <lablel for="cuenta">Nº de cuenta: </lablel>
-                    <input type="text" id="cuenta" name="cuenta">
+                    <lablel for="numCuenta">Nº de cuenta: </lablel>
+                    <input type="text" id="numCuenta" name="numCuenta">
                     <br>
                     <br>
                     <lablel for="cuenta">Importe: </lablel>
@@ -59,11 +59,15 @@
                     <input type="range" id="rangoImporte" name="rangoImporte" min="10" max="1000" step="10" value="10" oninput="numImporte.value = rangoImporte.value">
                     <br>
                     <br>
-                    <input type="button" id="boton" value="Ingresar" class="btn btn-lg btn-block btn-secondary">
-                    <input type="button" id="boton2" value="Retirar" class="btn btn-lg btn-block btn-dark">
+                    <lablel for="descripcion">Descripción: </lablel>
+                    <input type="text" id="descripcion" name="descripcion">
+                    <br>
+                    <br>
+                    <input type="button" id="boton" value="Ingresar" class="btn btn-lg btn-block btn-secondary enviar">
+                    <input type="button" id="boton2" value="Retirar" class="btn btn-lg btn-block btn-dark enviar">
                 </form>
             </div>
-
+            <h3 id="info"></h3>
         </div>
     </body>
 </html>
