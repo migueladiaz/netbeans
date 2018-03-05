@@ -44,7 +44,7 @@
                     <table>
                         <tr>
                             <td><label for="emaillogin">Email </label></td>
-                            <td><input type="email" id="emaillogin" name="emaillogin" placeholder=" your_name@example.com" required></td>
+                            <td><input type="email" id="emaillogin" name="emaillogin" placeholder=" name@example.com" required></td>
                         </tr>
                         <tr>
                             <td><label for="passlogin">Contraseña </label></td>
@@ -69,7 +69,7 @@
                     <table>
                         <tr>
                             <td><label for="emailregistro">Email </label></td>
-                            <td><input type="email" id="emailregistro" name="emailregistro" placeholder=" your_name@example.com" required></td>
+                            <td><input type="email" id="emailregistro" name="emailregistro" placeholder=" name@example.com" required></td>
                         </tr>
                         <tr>
                             <td><label for="passregistro">Contraseña </label></td>

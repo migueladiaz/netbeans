@@ -90,3 +90,24 @@ function validarNumCuenta() {
         return true;
     }
 }
+
+$(document).ready(function(){
+
+    var total = 25;
+
+    $('#descripcion').keyup(function() {
+        var cantidad = $('#descripcion').val().length;
+        var resto = total - cantidad;
+        if(resto == 0){
+            $("#contador").removeClass("saldo");
+            $("#contador").addClass("negativo");
+        }else{
+            $("#contador").removeClass("negativo");
+            $("#contador").addClass("saldo");
+        }
+        if(resto < 10){
+            resto = "0"+resto;
+        }
+        $('#contador').html(resto);   
+    });
+});

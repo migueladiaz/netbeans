@@ -60,7 +60,9 @@
                     <br>
                     <br>
                     <lablel for="descripcion">Descripción: </lablel>
-                    <input type="text" id="descripcion" name="descripcion">
+                    <input type="text" id="descripcion" name="descripcion" maxlength="25">
+                    <span id="contador" class="saldo">25</span>
+                    <span class="saldo">/ 25</span>
                     <br>
                     <br>
                     <input type="button" id="ingreso" value="Ingresar" class="btn btn-lg btn-secondary enviar">
