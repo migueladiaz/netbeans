@@ -64,6 +64,18 @@
     width: 150px;
 }
 
+.saldo{
+    color: cornflowerblue;
+}
+
+.positivo{
+    color: olivedrab;
+}
+
+.negativo{
+    color: indianred;
+}
+
 /*LOGIN*/
 
 .cuerpologin{

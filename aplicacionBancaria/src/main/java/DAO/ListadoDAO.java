@@ -20,7 +20,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class ListadoDAO {
     
     private final String queryValidarCuenta = "SELECT cu_ncu FROM cuentas WHERE cu_ncu = ?";
-    private final String queryGetMovimientos ="SELECT * FROM movimientos WHERE mo_ncu = ? AND m.mo_fec BETWEEN ? AND ? ORDER BY m.mo_fec DESC";
+    private final String queryGetMovimientos ="SELECT * FROM movimientos WHERE mo_ncu = ? AND mo_fec BETWEEN ? AND ? ORDER BY mo_fec DESC";
     
     public boolean validarCuenta(String cuenta) {
         boolean existe = false;

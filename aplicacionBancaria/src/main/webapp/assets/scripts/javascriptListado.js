@@ -48,10 +48,15 @@ $(document).ready(function() {
                             $("#error").fadeIn(100);
                         }else {
                             $("#tabla").append("<tr><th>Fecha</th><th>Hora</th><th>Descripción</th><th>Importe</th><th>Saldo</th></tr>");
-
+                            
                             for (var i = 0; i < datos.length; i++) {
+                                
+                                var saldo = formatoSaldo(datos[i].mo_sal);
+                                var importe = formatoImporte(datos[i].mo_imp);
                                 var fecha = formatoFecha(datos[i].mo_fec);
-                                $("#tabla").append('<tr><td>' + fecha + '</td><td>' + datos[i].mo_hor + '</td><td>' + datos[i].mo_des + '</td><td>' + datos[i].mo_imp + '€</td><td>' + datos[i].cu_sal + '€</td></tr>');
+                                var hora = formatoHora(datos[i].mo_hor);
+                                
+                                $("#tabla").append('<tr><td>' + fecha + '</td><td>' + hora + '</td><td>' + datos[i].mo_des + '</td><td>' + importe + '</td><td>' + saldo + '</td></tr>');
                             }
                         }
                     });
@@ -85,4 +90,28 @@ function formatoFecha(cadena){
     var fechaFinal = "";
     fechaFinal = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear();
     return fechaFinal;
+}
+
+function formatoSaldo(saldo) {
+    var cadena;
+    
+    if (saldo > 0) {
+        cadena = "<span class='saldo'>" + saldo + "€</span>";
+    } else {
+        cadena = "<span class='negativo'>" + saldo + "€</span>";
+    }
+    
+    return cadena;
+}
+
+function formatoImporte(importe) {
+    var cadena;
+    
+    if (importe > 0) {
+        cadena = "<span class='saldo'>" + importe + "€</span>";
+    } else {
+        cadena = "<span class='negativo'>" + importe + "€</span>";
+    }
+    
+    return cadena;
 }
