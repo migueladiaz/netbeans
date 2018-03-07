@@ -6,6 +6,7 @@
 package servicios;
 
 import DAO.AbrirDAO;
+import DAO.CerrarDAO;
 import DAO.ListadoDAO;
 import DAO.OperacionesDAO;
 import com.google.gson.Gson;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
+import model.Cuenta;
 import model.Movimiento;
 
 /**
@@ -143,5 +145,18 @@ public class Servicios {
         m.setMo_hor(hora);
         
         return dao.addMovimiento(m);
+    }
+    
+    public String getDatosCuenta (String numCuenta){
+        CerrarDAO dao = new CerrarDAO();
+        ArrayList datos = new ArrayList();
+        
+        Cuenta datosCuenta = dao.getCuenta(numCuenta);
+        List<Cliente> datosTitulares = dao.getTitulares(numCuenta);
+        
+        datos.add(datosCuenta);
+        datos.add(datosTitulares);
+        
+        return new Gson().toJson(datos);
     }
 }

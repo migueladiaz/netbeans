@@ -22,10 +22,12 @@ public class Constantes {
     public static final String PINTAR_LISTADO = "/listado.jsp";
     public static final String PINTAR_ABRIR = "/abrir.jsp";
     public static final String PINTAR_OPERACIONES = "/operaciones.jsp";
+    public static final String PINTAR_CERRAR = "/cerrar.jsp";
 
     public static final String REDIRIGIR_LISTADO = "banco/listado";
     public static final String URL_LOGIN = "/login";
     public static final String URL_LISTADO = "/banco/listado";
     public static final String URL_ABRIR = "/banco/abrir";
     public static final String URL_OPERACIONES = "/banco/operaciones";
+    public static final String URL_CERRAR = "/banco/cerrar";
 }

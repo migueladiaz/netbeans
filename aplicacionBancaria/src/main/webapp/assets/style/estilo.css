@@ -121,22 +121,6 @@
     color: black;
 }
 
-#ant {
-    display:none;
-    position: absolute;
-    bottom: 0;
-    left: 20%;
-    margin-bottom: 25px;
-}
-
-#sig{
-    display:none;
-    position: absolute;
-    bottom: 0;
-    right: 20%;
-    margin-bottom: 25px;
-}
-
 #tablaDatos{
     margin: auto;
     margin-top: -20px;
