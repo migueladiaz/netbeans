@@ -4,6 +4,7 @@ $(document).ready(function () {
     $( ".cambiarFormulario" ).click(function( event ) {
         event.preventDefault();
         $("#mensajeinfo").fadeOut(100);
+        $("#errorLogin").fadeOut(100);
     });
     $("#emailregistro").focus(function () {
         $("#errorEmail").fadeOut(100);

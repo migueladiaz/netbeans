@@ -6,11 +6,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
     <head>
         <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/style/estilo.css">
         <link rel="stylesheet/less" type="text/css" href="assets/style/estiloLess.less" />
@@ -34,7 +34,7 @@
 
             <h1 id="mensajeinfo"><c:out value="${mensaje}"></c:out></h1>
             
-            <div id="divlogin" class="col-xl-4">
+            <div id="divlogin" class="col-xl-4 col-md-12 col-12">
                 <h1 id="titulo">Iniciar <b>sesión</b></h1>
                 <br>
                 <span id="errorLogin"><c:out value="${mensaje2}"></c:out></span>
