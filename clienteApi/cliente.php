@@ -28,7 +28,8 @@ if (isset($_REQUEST["accion"])) {
                     'headers' => ["API_KEY" => "85RGF64UTVVFM9GZYY1H8U69N77IHSAKV83SEP9XWYB4R7GYM2"],
                     'query' => [
                         'movimiento' => json_encode($movimiento)
-                    ]
+                    ],
+                    'json' => [$movimiento]
                 ]);
                 $info = "Se ha realizado el cargo en la cuenta";
                 
