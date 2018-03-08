@@ -19,7 +19,7 @@ public class Cliente {
     private String cl_ema;
     private Date cl_fna;
     private Date cl_fcl;
-    private String cl_ncu;
+    private int cl_ncu;
     private int cl_sal;
 
     public String getCl_dni() {
@@ -78,11 +78,11 @@ public class Cliente {
         this.cl_fcl = cl_fcl;
     }
 
-    public String getCl_ncu() {
+    public int getCl_ncu() {
         return cl_ncu;
     }
 
-    public void setCl_ncu(String cl_ncu) {
+    public void setCl_ncu(int cl_ncu) {
         this.cl_ncu = cl_ncu;
     }
 

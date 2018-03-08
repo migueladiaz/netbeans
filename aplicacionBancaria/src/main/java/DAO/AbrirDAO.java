@@ -40,7 +40,7 @@ public class AbrirDAO {
         return c;
     }
     
-    public boolean addTitular(Cliente c, int importe, String tiempo, boolean existe, boolean segundoTitular) {
+    public boolean addTitular(String numCuenta, Cliente c, int importe, String tiempo, boolean existe, boolean segundoTitular) {
         Connection con = null;
         boolean guardado = false;
         try {
@@ -69,19 +69,19 @@ public class AbrirDAO {
             if(segundoTitular){
                 stmt = con.prepareStatement(queryUpdateCuenta);
                 stmt.setString(1, c.getCl_dni());
-                stmt.setString(2, c.getCl_ncu());
+                stmt.setString(2, numCuenta);
                 
                 stmt.executeUpdate();
             }else{
                 stmt = con.prepareStatement(queryAddCuenta);
-                stmt.setString(1, c.getCl_ncu());
+                stmt.setString(1, numCuenta);
                 stmt.setString(2, c.getCl_dni());
                 stmt.setInt(3, importe);
 
                 stmt.executeUpdate();
 
                 stmt = con.prepareStatement(queryAddMovimiento);
-                stmt.setString(1, c.getCl_ncu());
+                stmt.setString(1, numCuenta);
                 stmt.setDate(2, new java.sql.Date(c.getCl_fcl().getTime()));
                 stmt.setString(3, tiempo);
                 stmt.setInt(4, importe);

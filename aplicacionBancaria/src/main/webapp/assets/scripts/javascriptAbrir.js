@@ -47,12 +47,7 @@ $(document).ready(function() {
                             $("#errorDni").html(datos[1]);
                             $("#errorDni").fadeIn(100);
                         }else{
-                            var fecha = new Date(datos.cl_fna);
-                            var mes = fecha.getMonth();
-                            if(mes < 10){
-                                mes = "0"+mes;
-                            }
-                            var fechaNacimiento = fecha.getDate()+"/"+mes+"/"+fecha.getFullYear();
+                            var fechaNacimiento = formatoFecha(new Date(datos.cl_fna));
                             
                             $("#nombre").val(datos.cl_nom);
                             $("#direccion").val(datos.cl_dir);
@@ -249,4 +244,17 @@ function validarDni(){
     }else{
         return true;
     }
+}
+
+function formatoFecha(fecha){
+    var dia = fecha.getDate();
+    if(dia < 10){
+        dia = "0"+dia;
+    }
+    
+    var mes = fecha.getMonth()+1;
+    if(mes < 10){
+        mes = "0"+mes;
+    }
+    return dia+"/"+mes+"/"+fecha.getFullYear();
 }

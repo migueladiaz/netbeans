@@ -6,10 +6,13 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,25 +80,28 @@ public class Abrir extends HttpServlet {
                     Cliente c = new Cliente();
                     c.setCl_dni(dni);
                     c.setCl_fcl(Date.from(fechaCliente.atStartOfDay().toInstant(ZoneOffset.UTC)));
-                    c.setCl_ncu(numCuenta);
                     
                     int importe = Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_IMPORTE));
                     boolean existe = Boolean.parseBoolean(request.getParameter(ConstantesAbrir.PARAMETRO_EXISTE));
                     boolean segundoTitular = Boolean.parseBoolean(request.getParameter(ConstantesAbrir.PARAMETRO_SEGUNDO_TITULAR));
                     
                     if(!existe){
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                        String fecha = request.getParameter(ConstantesAbrir.PARAMETRO_FECHA_NACIMIENTO);
-                        Date fechaNacimiento = new Date(fecha);
-                        
-                        c.setCl_nom(request.getParameter(ConstantesAbrir.PARAMETRO_NOMBRE));
-                        c.setCl_dir(request.getParameter(ConstantesAbrir.PARAMETRO_DIRECCION));
-                        c.setCl_tel(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_TELEFONO)));
-                        c.setCl_ema(request.getParameter(ConstantesAbrir.PARAMETRO_EMAIL));
-                        c.setCl_fna(fechaNacimiento);
+                        try {
+                            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+                            String fecha = request.getParameter(ConstantesAbrir.PARAMETRO_FECHA_NACIMIENTO);
+                            Date fechaNacimiento = fmt.parse(fecha);
+
+                            c.setCl_nom(request.getParameter(ConstantesAbrir.PARAMETRO_NOMBRE));
+                            c.setCl_dir(request.getParameter(ConstantesAbrir.PARAMETRO_DIRECCION));
+                            c.setCl_tel(Integer.parseInt(request.getParameter(ConstantesAbrir.PARAMETRO_TELEFONO)));
+                            c.setCl_ema(request.getParameter(ConstantesAbrir.PARAMETRO_EMAIL));
+                            c.setCl_fna(fechaNacimiento);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Abrir.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                     
-                    if(s.addTitular(c, importe, existe, segundoTitular)){
+                    if(s.addTitular(numCuenta, c, importe, existe, segundoTitular)){
                         response.getWriter().write(Constantes.CODIGO_OK);
                     }else{
                         response.getWriter().write(s.error(ConstantesAbrir.ERROR_GUARDAR_DATOS));

@@ -87,9 +87,16 @@ $(document).ready(function () {
 //Escribe la fecha en el formato deseado
 function formatoFecha(cadena){
     var fecha = new Date(cadena);
-    var fechaFinal = "";
-    fechaFinal = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear();
-    return fechaFinal;
+    var dia = fecha.getDate();
+    if(dia < 10){
+        dia = "0"+dia;
+    }
+    
+    var mes = fecha.getMonth()+1;
+    if(mes < 10){
+        mes = "0"+mes;
+    }
+    return dia+"/"+mes+"/"+fecha.getFullYear();
 }
 
 function formatoSaldo(saldo) {

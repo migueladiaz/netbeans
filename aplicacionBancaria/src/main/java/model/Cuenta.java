@@ -10,16 +10,16 @@ package model;
  * @author Miguel
  */
 public class Cuenta {
-    private int cu_ncu;
+    private String cu_ncu;
     private String cu_dn1;
     private String cu_dn2;
     private int cu_sal;
 
-    public int getCu_ncu() {
+    public String getCu_ncu() {
         return cu_ncu;
     }
 
-    public void setCu_ncu(int cu_ncu) {
+    public void setCu_ncu(String cu_ncu) {
         this.cu_ncu = cu_ncu;
     }
 

@@ -131,11 +131,11 @@ public class Servicios {
         return tiempo;
     }
     
-    public boolean addTitular(Cliente c, int importe, boolean existe, boolean segundoTitular){
+    public boolean addTitular(String numCuenta, Cliente c, int importe, boolean existe, boolean segundoTitular){
         AbrirDAO dao = new AbrirDAO();
         LocalDateTime fechaActual = LocalDateTime.now();
         String tiempo = parseTiempo(fechaActual);
-        return dao.addTitular(c, importe, tiempo, existe, segundoTitular);
+        return dao.addTitular(numCuenta, c, importe, tiempo, existe, segundoTitular);
     }
     
     public boolean addMovimiento(Movimiento m){
@@ -158,5 +158,18 @@ public class Servicios {
         datos.add(datosTitulares);
         
         return new Gson().toJson(datos);
+    }
+    
+    public int getSaldo(String numCuenta){
+        CerrarDAO dao = new CerrarDAO();
+        Cuenta c = dao.getCuenta(numCuenta);
+        return c.getCu_sal();
+    }
+    
+    public boolean delCuenta(String numCuenta){
+        CerrarDAO dao = new CerrarDAO();
+        List<Cliente> titulares = dao.getTitulares(numCuenta);
+        
+        return dao.delCuenta(numCuenta, titulares);
     }
 }

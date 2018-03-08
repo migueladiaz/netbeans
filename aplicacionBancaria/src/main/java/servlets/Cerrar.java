@@ -54,8 +54,20 @@ public class Cerrar extends HttpServlet {
                     }
                     break;
                     
-                case ConstantesCerrar.CASE_CERRAR_CUENTA:
+                case ConstantesCerrar.CASE_COMPROBAR_SALDO:
+                    if(s.getSaldo(numCuenta)==0){
+                        response.getWriter().write(Constantes.CODIGO_OK);
+                    }else{
+                        response.getWriter().write(s.error(ConstantesCerrar.ERROR_SALDO));
+                    }
+                    break;
                     
+                case ConstantesCerrar.CASE_CERRAR_CUENTA:
+                    if(s.delCuenta(numCuenta)){
+                        response.getWriter().write(Constantes.CODIGO_OK);
+                    }else{
+                        response.getWriter().write(s.error(Constantes.ERROR));
+                    }
                     break;
             }
         }else{

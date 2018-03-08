@@ -12,7 +12,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="../assets/style/estilo.css">
+        <link rel="stylesheet/less" type="text/css" href="../assets/style/estiloLess.less" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.0/less.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <title>Cerrar cuentas</title>
@@ -51,19 +53,21 @@
                 <span id="errorCuenta" class="errorFormulario"></span>
                 <br>
                 <input type="text" id="numCuenta" placeholder="Número de cuenta">
-                <br>
                 <button id="comprobarCuenta" class="btn btn-dark">Comprobar</button>
             </div>
-            
-            <div class="row">
-                <div class="titular" class="col-xl-6">
-                    <table id="tablaDatos">
+            <div class="row tablas">
+                <div class="col-xl-12">
+                    <table id="datosCuenta" class="table table-striped"></table>
+                </div>
+                <div id="titular1" class="titular col-md-6 col-12">
+                    <h2>Titular 1</h2>
+                    <table id="tablaDatos1">
                         <tr>
                             <td>
                                 <span>Nombre y apellidos:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="nombre" placeholder="Nombre y apellidos">
+                                <input class="datosTitular" type="text" id="nombre">
                             </td>
                         </tr>
                         <tr>
@@ -71,7 +75,7 @@
                                 <span>Dirección:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="direccion" placeholder="Dirección">
+                                <input class="datosTitular" type="text" id="direccion">
                             </td>
                         </tr>
                         <tr>
@@ -79,7 +83,7 @@
                                 <span>Teléfono:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="telefono" placeholder="Teléfono">
+                                <input class="datosTitular" type="text" id="telefono">
                             </td>
                         </tr>
                         <tr>
@@ -87,7 +91,7 @@
                                 <span>Email:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="email" id="email" placeholder="Email">
+                                <input class="datosTitular" type="email" id="email">
                             </td>
                         </tr>
                         <tr>
@@ -95,22 +99,20 @@
                                 <span>Fecha de nacimiento:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="fechaNacimiento" placeholder="dd/mm/yyyy">
+                                <input class="datosTitular" type="text" id="fechaNacimiento">
                             </td>
                         </tr>
                     </table>
-                    <span id="errorDatos" class="errorFormulario"></span>
-                    <br>
-                    <button id="guardarDatos" class="btn btn-dark">Guardar</button>
                 </div>
-                <div class="titular" class="col-xl-6">
+                <div id="titular2" class="titular col-md-6 col-12">
+                    <h2>Titular 2</h2>
                     <table id="tablaDatos2">
                         <tr>
                             <td>
                                 <span>Nombre y apellidos:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="nombre" placeholder="Nombre y apellidos">
+                                <input class="datosTitular" type="text" id="nombre2">
                             </td>
                         </tr>
                         <tr>
@@ -118,7 +120,7 @@
                                 <span>Dirección:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="direccion" placeholder="Dirección">
+                                <input class="datosTitular" type="text" id="direccion2">
                             </td>
                         </tr>
                         <tr>
@@ -126,7 +128,7 @@
                                 <span>Teléfono:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="telefono" placeholder="Teléfono">
+                                <input class="datosTitular" type="text" id="telefono2">
                             </td>
                         </tr>
                         <tr>
@@ -134,7 +136,7 @@
                                 <span>Email:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="email" id="email" placeholder="Email">
+                                <input class="datosTitular" type="email" id="email2">
                             </td>
                         </tr>
                         <tr>
@@ -142,15 +144,16 @@
                                 <span>Fecha de nacimiento:</span>
                             </td>
                             <td>
-                                <input class="datosTitular" type="text" id="fechaNacimiento" placeholder="dd/mm/yyyy">
+                                <input class="datosTitular" type="text" id="fechaNacimiento2">
                             </td>
                         </tr>
                     </table>
-                    <span id="errorDatos" class="errorFormulario"></span>
-                    <br>
-                    <button id="guardarDatos" class="btn btn-dark">Guardar</button>
                 </div>
             </div>
+            <h3 id="mensaje">La cuenta se ha borrado correctamente</h3>
+            <br>
+            <br>
+            <button id="cerrar" class="btn btn-dark">Cerrar cuenta</button>
         </div>
     </body>
 </html>

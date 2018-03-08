@@ -57,10 +57,15 @@ $(document).ready(function() {
                 accion: "movimiento"
             },
                 function(data, status) {
+                    $("#descripcion").val("");
+                    $("#numImporte").val("0");
+                    $("#rangoImporte").val("0");
+                    $("#contador").html("25"); 
                     $("#info").html(data);
                     $("#info").fadeIn(100, function(){
                         setTimeout(function(){$("#info").fadeOut(100)}, 2000);
                     });
+                    
                 });
         }
     });

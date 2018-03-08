@@ -28,6 +28,10 @@
     color: indianred;
 }
 
+table{
+    margin:auto;
+}
+
 /*LISTADO DE MOVIMIENTOS*/
 
 #formularioListado{
@@ -160,3 +164,16 @@
     width: 100px;
 }
 
+/*CERRAR*/
+
+#datosCuenta th{
+    border-top: none;
+}
+
+#mensaje{
+    display: none;
+}
+
+#cerrar{
+    display: none;
+}
