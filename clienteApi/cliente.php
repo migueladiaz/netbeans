@@ -44,6 +44,7 @@ if (isset($_REQUEST["accion"])) {
             break;
     }
     
-}else{
-    include 'index.php';
 }
+
+include 'index.php';
+

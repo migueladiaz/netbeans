@@ -26,20 +26,20 @@
             
             <div class="form-bot">
                 <form action="cliente.php" method="post" id="formulario">
-                    <input type="hidden" id="accion" value="reintegro">
+                    <input type="hidden" name="accion" value="reintegro">
                     <div class="form-group">
                         <span id="errorCuenta"></span>
                         <br>
-                        <input type="text" id="numCuenta" placeholder="Nº de cuenta...">
+                        <input type="text" id="numCuenta" name="numCuenta" placeholder="Nº de cuenta...">
                     </div>
                     <div class="form-group">
                         <span id="errorImporte"></span>
                         <br>
-                        <input type="text" id="importe" placeholder="Importe...">
+                        <input type="text" id="importe" name="importe" placeholder="Importe...">
                     </div>
                     <div class="form-group">
                         <br>
-                        <input type="text" id="descripcion" placeholder="Descripcion...">
+                        <input type="text" id="descripcion" name="descripcion" placeholder="Descripcion...">
                     </div>
                     <button type="submit">Enviar</button>
                 </form>
