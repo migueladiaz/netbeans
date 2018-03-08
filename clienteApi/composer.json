@@ -1,0 +1,13 @@
+{
+    "name": "vendor/cliente-api",
+    "description": "Description of project clienteApi.",
+    "authors": [
+        {
+            "name": "Miguel",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "6.3.0"
+    }
+}
