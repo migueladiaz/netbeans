@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 $client = new Client();
 $movimiento = new \stdClass;
-$uri = 'http://localhost:8080/ejercicioBaseDatos/rest/restOperaciones';
+$uri = 'http://localhost:8080/aplicacionBancaria/rest/restOperaciones';
 
 if (isset($_REQUEST["accion"])) {
     
@@ -17,19 +17,17 @@ if (isset($_REQUEST["accion"])) {
     
 
     $movimiento->mo_ncu = $numCuenta;
-    $movimiento->mo_imp = "-".$importe;
+    $movimiento->mo_imp = $importe;
     $movimiento->mo_des = $descripcion;
     
-    
     switch ($accion){
-        case "reintegro":
+        case "addMovimiento":
             try {
                 $response = $client->put($uri, [
                     'headers' => ["API_KEY" => "85RGF64UTVVFM9GZYY1H8U69N77IHSAKV83SEP9XWYB4R7GYM2"],
                     'query' => [
                         'movimiento' => json_encode($movimiento)
-                    ],
-                    'json' => [$movimiento]
+                    ]
                 ]);
                 $info = "Se ha realizado el cargo en la cuenta";
                 
