@@ -30,4 +30,5 @@ public class Constantes {
     public static final String URL_ABRIR = "/banco/abrir";
     public static final String URL_OPERACIONES = "/banco/operaciones";
     public static final String URL_CERRAR = "/banco/cerrar";
+    public static final String URL_REST_OPERACIONES = "/rest/restOperaciones";
 }

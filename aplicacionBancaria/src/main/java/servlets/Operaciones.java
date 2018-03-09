@@ -56,13 +56,23 @@ public class Operaciones extends HttpServlet {
                     break;
                 
                 case ConstantesOperaciones.CASE_MOVIMIENTO:
+                    boolean errorSaldo = false;
                     m.setMo_des(request.getParameter(ConstantesOperaciones.PARAMETRO_DESCRIPCION));
                     m.setMo_imp(Integer.parseInt(request.getParameter(ConstantesOperaciones.PARAMETRO_IMPORTE)));
                     m.setMo_ncu(numCuenta);
-                    if(s.addMovimiento(m)){
-                        response.getWriter().write(ConstantesOperaciones.MENSAJE_MOVIMIENTO);
+                    if(m.getMo_imp()<0){
+                        if((m.getMo_imp()*-1)>s.getSaldo(numCuenta)){
+                            errorSaldo = true;
+                        }
+                    }
+                    if(!errorSaldo){
+                        if(s.addMovimiento(m)){
+                            response.getWriter().write(ConstantesOperaciones.MENSAJE_MOVIMIENTO);
+                        }else{
+                            response.getWriter().write(Constantes.ERROR);
+                        }
                     }else{
-                        response.getWriter().write(Constantes.ERROR);
+                        response.getWriter().write(ConstantesOperaciones.ERROR_SALDO);
                     }
                     break;
             }

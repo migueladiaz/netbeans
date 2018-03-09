@@ -21,4 +21,5 @@ public class ConstantesOperaciones {
     public static final String MENSAJE_MOVIMIENTO = "Operación realizada correctamente";
     
     public static final String ERROR_CUENTA_NO_EXISTE = "El número de cuenta no existe";
+    public static final String ERROR_SALDO = "Saldo insuficiente";
 }
