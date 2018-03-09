@@ -56,7 +56,7 @@
                     <br>
                     <br>
                     <lablel for="numImporte">Importe: </lablel>
-                    <input type="text" id="numImporte" name="numImporte" value="0" disabled>
+                    <input type="text" id="numImporte" name="numImporte" value="0" oninput="rangoImporte.value = numImporte.value">
                     <input type="range" id="rangoImporte" name="rangoImporte" min="10" max="1000" step="10" value="0" oninput="numImporte.value = rangoImporte.value">
                     <br>
                     <br>

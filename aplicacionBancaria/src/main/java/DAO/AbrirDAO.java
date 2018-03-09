@@ -21,8 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class AbrirDAO {
     
     private final String queryGetCliente = "SELECT * from clientes WHERE cl_dni = ?";
-    private final String queryUpdateTitular = "UPDATE clientes c JOIN clientes cl ON c.cl_dni = cl.cl_dni "
-            + "SET c.cl_ncu = cl.cl_ncu + 1, c.cl_sal = cl.cl_sal + ? WHERE c.cl_dni = ?";
+    private final String queryUpdateTitular = "UPDATE clientes SET cl_ncu = cl_ncu + 1, cl_sal = cl_sal + ? WHERE c.cl_dni = ?";
     private final String queryAddTitular = "INSERT INTO clientes (cl_dni, cl_nom, cl_dir, cl_tel, cl_ema, cl_fna, cl_fcl, cl_ncu, cl_sal) VALUES (?,?,?,?,?,?,?,1,?)";
     private final String queryAddCuenta = "INSERT INTO cuentas (cu_ncu, cu_dn1, cu_sal) VALUES (?,?,?)";
     private final String queryUpdateCuenta = "UPDATE cuentas SET cu_dn2 = ? WHERE cu_ncu = ?";

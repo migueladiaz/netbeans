@@ -19,12 +19,11 @@ import model.Movimiento;
  */
 public class OperacionesDAO {
     
-    private final String queryUpdateSaldoCuenta = "UPDATE cuentas c JOIN cuentas cu ON c.cu_ncu = cu.cu_ncu "
-            + "SET c.cu_sal = cu.cu_sal + ? WHERE c.cu_ncu = ?";
+    private final String queryUpdateSaldoCuenta = "UPDATE cuentas SET cu_sal = cu_sal + ? WHERE cu_ncu = ?";
     
-    private final String queryUpdateSaldoCliente = "UPDATE clientes c JOIN clientes cl ON c.cl_dni = cl.cl_dni "
-            + "SET c.cl_sal = cl.cl_sal + ? WHERE c.cl_dni = (SELECT cu_dn1 FROM cuentas WHERE cu_ncu = ?) "
-            + "OR c.cl_dni = (SELECT cu_dn2 FROM cuentas WHERE cu_ncu = ?)";
+    private final String queryUpdateSaldoCliente = "UPDATE clientes SET cl_sal = cl_sal + ? "
+            + "WHERE cl_dni = (SELECT cu_dn1 FROM cuentas WHERE cu_ncu = ?) "
+            + "OR cl_dni = (SELECT cu_dn2 FROM cuentas WHERE cu_ncu = ?)";
     
     private final String queryAddMovimiento = "INSERT INTO movimientos (mo_ncu, mo_fec, mo_hor, mo_des, mo_imp, mo_sal)"
             + " VALUES (?,?,?,?,?,(SELECT cu_sal FROM cuentas WHERE cu_ncu = ?))";

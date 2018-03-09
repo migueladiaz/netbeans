@@ -30,7 +30,7 @@ public class CerrarDAO {
     
     private final String queryDelCuenta = "DELETE FROM cuentas WHERE cu_ncu = ?";
     private final String queryDelTitular = "DELETE FROM clientes WHERE cl_dni = ?";
-    private final String queryUpdateTitular = "UPDATE clientes c JOIN clientes cl ON c.cl_dni = cl.cl_dni SET c.cl_ncu = cl.cl_ncu - 1 WHERE c.cl_dni = ?";
+    private final String queryUpdateTitular = "UPDATE clientes SET cl_ncu = cl_ncu - 1 WHERE cl_dni = ?";
     private final String queryDelMovimientos = "DELETE FROM movimientos WHERE mo_ncu = ?";
     
     
