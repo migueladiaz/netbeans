@@ -1,34 +1,74 @@
-var importeCorrecto;
+
+var importeCorrecto = false;
+var opcion;
 
 $(document).ready(function(){
-    $("#ingreso").click(function(event){
-        event.preventDefault();
+    $("#devolver").click(function(){
         if(validarNumCuenta()){
-            $("#formulario").submit();
+            opcion = "devolver";
+            addMovimiento();
         }
     });
     
-    $("#reintegro").click(function(event){
-        event.preventDefault();
+    $("#cobrar").click(function(){
         if(validarNumCuenta()){
-            var importe = -1 * parseInt($("#importe").val());
-            $("#importe").val(importe);
-            $("#formulario").submit();
+            opcion = "cobrar";
+            addMovimiento();
         }
     });
     
     //Comprueba que el importe es mayor que 0 cada vez que se cambia el valor del campo
     $("#importe").on("input",function(){
         if($("#importe").val()>0){
-            $("#sig").fadeIn(100);
+            $("#importe").removeClass("bordeError");
             $("#errorImporte").fadeOut(100);
+            importeCorrecto = true;
         }else{
-            $("#errorImporte").html("El importe introducido no es correcto");
+            $("#importe").addClass("bordeError");
+            $("#errorImporte").html("El importe introducido no es correcto.");
             $("#errorImporte").fadeIn(100);
-            $("#sig").fadeOut(100);
+            importeCorrecto = false;
         }
     });
+    
+    $("#importe").focus(function(){
+        $("#errorImporte").fadeOut(100);
+        $("#importe").removeClass("bordeError");
+    });
+    
+    $("#numCuenta").focus(function(){
+        $("#errorCuenta").fadeOut(100);
+        $("#numCuenta").removeClass("bordeError");
+    });
 });
+
+function addMovimiento(){
+    if(importeCorrecto){
+        var importe = $("#importe").val();
+        if(opcion=="cobrar"){
+            importe = importe * -1;
+        }
+        $.post("cliente.php", {
+            numCuenta: $("#numCuenta").val(),
+            importe: importe,
+            descripcion: $("#descripcion").val(),
+            accion: "addMovimiento"
+        },
+            function(data, status) {
+                $("#numCuenta").val("");
+                $("#descripcion").val("");
+                $("#importe").val("");
+                $("#info").html(data);
+                $("#info").fadeIn(100, function(){
+                    setTimeout(function(){$("#info").fadeOut(100)}, 3000);
+                });
+            });
+    }else{
+        $("#importe").addClass("bordeError");
+        $("#errorImporte").html("El importe introducido no es correcto.");
+        $("#errorImporte").fadeIn(100);
+    }
+}
 
 function validarNumCuenta() {
     var numCuenta = $("#numCuenta").val();
@@ -49,6 +89,7 @@ function validarNumCuenta() {
     if(error == true){
         $("#errorCuenta").html("El número de cuenta no es correcto.");
         $("#errorCuenta").fadeIn(100);
+        $("#numCuenta").addClass("bordeError");
         return false;
     }else{
         return true;

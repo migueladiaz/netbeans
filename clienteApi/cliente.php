@@ -29,7 +29,12 @@ if (isset($_REQUEST["accion"])) {
                         'movimiento' => json_encode($movimiento)
                     ]
                 ]);
-                $info = "Se ha realizado el cargo en la cuenta";
+                
+                $respuesta = json_decode($response->getBody());
+                
+                if($respuesta != null){
+                    $info = "La operación se ha realizado con éxito";
+                }
                 
             } catch (Exception $exception) {
                 if ($exception->getCode() == 403) {
@@ -42,8 +47,11 @@ if (isset($_REQUEST["accion"])) {
             }
             break;
     }
+    echo $info;
     
+}else{
+    include 'index.php';
 }
 
-include 'index.php';
+
 
