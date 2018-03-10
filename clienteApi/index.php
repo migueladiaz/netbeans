@@ -14,7 +14,7 @@
     <body>
         <header id="cabecera">
             <div id="titulo">
-                <span>Aplicación bancaria</span>
+                <span>APLICACIÓN BANCARIA</span>
             </div>
             <div id="subtitulo">
                 <span>La magia de <b>Less</b></span>
