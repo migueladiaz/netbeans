@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Miguel
 */
 
-/***VARIABLES***/
+/***GENERAL***/
 
 @negro: black;
 
@@ -16,21 +16,40 @@ body{
     color: @negro;
 }
 
-/***MIXINS***/
-
-.abajo{
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 25px;
-    right: 20%;
-}
-
-#sig{
-    .abajo;
+.oculto{
     display: none;
 }
 
-/***NESTING***/
+#cuerpo{
+    text-align: center;
+    position: relative;
+}
+
+.nav-item{
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.active{
+    cursor: default;
+}
+
+#titulo{
+    margin: 60px 0 40px 0;
+}
+
+.errorFormulario{
+    .oculto;
+    color: indianred;
+}
+
+table{
+    margin:auto;
+}
+
+
+/*LOGIN*/
 
 .cuerpologin{
     padding-top: 75px;
@@ -44,10 +63,59 @@ body{
     }
 }
 
+
+/*ABRIR*/
+
+#paneles {
+    a{
+        color: lightgray;
+        cursor: default;
+        pointer-events: none;
+        &:hover{
+            border: none;
+        }
+    }
+    .active{
+        color: black;
+    }
+}
+
+#tablaDatos{
+    margin: auto;
+    margin-top: -20px;
+    text-align: left;
+    span{
+        margin-right: 10px;
+    }
+}
+
+.tab-pane{
+    height: 350px;
+    h3{
+        padding: 75px 0 40px 0; 
+    }
+    button{
+        margin-top: 40px; 
+    }
+}
+
+#sig{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 25px;
+    right: 20%;
+    .oculto;
+}
+
+.boton{
+    width: 80px;
+    margin: 0 20px;
+}
+
 /*CERRAR*/
 
 .tablas{
-    display: none;
+    .oculto;
     margin-top: 40px;
     .titular table{
         text-align: left;
@@ -55,3 +123,95 @@ body{
     }
 }
 
+#datosCuenta th{
+    border-top: none;
+}
+
+#mensaje{
+    .oculto;
+}
+
+#cerrar{
+    .oculto;
+}
+
+/*LISTADO*/
+
+#formularioListado{
+    margin: auto;
+    max-width: 430px;
+    text-align: left;
+}
+
+.fecha{
+    width: 160px;
+}
+
+#contTabla{
+    padding-top: 60px;
+    margin: auto;
+    font-size: 26px;
+    table {
+        td{
+            background-color: #eee;
+        }
+        th{
+            border-top:none;
+        }
+    }
+}
+
+#numImporte{
+    margin-left: 20px;
+    width: 41px;
+}
+
+#rangoImporte{
+    margin-left: 20px;
+    width: 150px;
+}
+
+.saldo{
+    color: cornflowerblue;
+}
+
+.positivo{
+    color: olivedrab;
+}
+
+.negativo{
+    color: indianred;
+}
+
+
+/*OPERACIONES*/
+
+.cuerpologin{
+    padding-top: 75px;
+    table{
+        text-align: left;
+        margin: auto;
+        td{
+            min-width: 100px;
+            padding-bottom: 30px;
+        }
+    }
+}
+
+#divregistro{
+    margin: auto;
+    .oculto;
+}
+
+#divlogin{
+    margin: auto;
+}
+
+#errorLogin{
+    color: indianred;
+}
+
+.enviar{
+    .oculto;
+    width: 100px;
+}
