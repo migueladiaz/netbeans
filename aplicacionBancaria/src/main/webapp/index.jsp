@@ -22,10 +22,14 @@
     </head>
 
     <body>
+        <div class="jumbotron">
+            <h1>Aplicación bancaria</h1>
+            <h4>La magia de Less</h4>
+        </div>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">La magia de la aplicación bancaria</a>
+                    <a class="nav-link active" href="#">Bienvenido</a>
                 </li>
             </ul>
         </nav>
@@ -38,7 +42,6 @@
                 <br>
                 <span id="errorLogin"><c:out value="${mensaje2}"></c:out></span>
                 <br>
-                <br>
                 <form action="login?accion=login" method="post" onsubmit="return validarLogin()">
                     <table>
                         <tr>
@@ -50,7 +53,7 @@
                             <td><input type="password" id="passlogin" name="passlogin" required></td>
                         </tr>
                     </table>
-                    <input type="submit" id="botonLogin" value="Iniciar" class="btn btn-lg btn-block btn-dark">
+                    <input type="submit" id="botonLogin" value="Iniciar" class="btn btn-lg btn-block btn-secondary">
                     <br>
                     <span><b>Regístrate </b>haciendo click <a class="cambiarFormulario" href="#" onclick="mostrarRegistro()">aqui</a></span>
                 </form>

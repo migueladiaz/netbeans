@@ -11,9 +11,19 @@ and open the template in the editor.
 /***GENERAL***/
 
 @negro: black;
+@fondo: #5B83AD;
 
 body{
     color: @negro;
+}
+
+.jumbotron{
+    text-align: center;
+    margin-bottom: 0px;
+    padding: 30px;
+    background-color: @fondo;
+    color: white;
+    border-radius: 0px;
 }
 
 .oculto{
@@ -23,6 +33,7 @@ body{
 #cuerpo{
     text-align: center;
     position: relative;
+    padding-bottom: 30px;
 }
 
 .nav-item{
@@ -48,11 +59,19 @@ table{
     margin:auto;
 }
 
+.btn-secondary{
+    background-color: @fondo;
+    border-color: @fondo;
+    &:hover{
+        background-color: @fondo+20;
+        border-color: @fondo+20;
+    }
+}
+
 
 /*LOGIN*/
 
 .cuerpologin{
-    padding-top: 75px;
     table{
         text-align: left;
         margin: auto;
@@ -161,16 +180,6 @@ table{
     }
 }
 
-#numImporte{
-    margin-left: 20px;
-    width: 41px;
-}
-
-#rangoImporte{
-    margin-left: 20px;
-    width: 150px;
-}
-
 .saldo{
     color: cornflowerblue;
 }
@@ -187,7 +196,6 @@ table{
 /*OPERACIONES*/
 
 .cuerpologin{
-    padding-top: 75px;
     table{
         text-align: left;
         margin: auto;
@@ -214,4 +222,14 @@ table{
 .enviar{
     .oculto;
     width: 100px;
+}
+
+#numImporte{
+    margin-left: 20px;
+    width: 70px;
+}
+
+#rangoImporte{
+    margin-left: 20px;
+    width: 150px;
 }

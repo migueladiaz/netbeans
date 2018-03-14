@@ -3,18 +3,22 @@ var opcion;
 
 //Oculta los botones y los errores si se va a cambiar el número de cuenta
 $(document).ready(function(){
-   $("#numCuenta").focus(function(){
+    $("#numCuenta").focus(function(){
        $(".enviar").fadeOut(100);
        $("#errorCuenta").fadeOut(100);
-   });
-   
-   $("#ingreso").click(function(){
-       opcion = "ingresar";
-   });
-   
-   $("#reintegro").click(function(){
-       opcion = "retirar";
-   });
+    });
+
+    $("#ingreso").click(function(){
+        opcion = "ingresar";
+    });
+
+    $("#reintegro").click(function(){
+        opcion = "retirar";
+    });
+    
+    $(".imp").focus(function(){
+       $("#errorImporte").fadeOut(100);
+    });
 });
 
 //AJAX para comprobar numero de cuenta
@@ -41,32 +45,37 @@ $(document).ready(function() {
 //AJAX para añadir el movimiento
 $(document).ready(function() {
     $(".enviar").click(function() {
-        var importe = $("#numImporte").val();
+        if($("#numImporte").val()>0){
+            var importe = $("#numImporte").val();
         
-        var confirmar = confirm("Se van a "+opcion+" "+importe+"€ ¿Quieres continuar?");
-        
-        if(confirmar){
-            if(opcion=="retirar"){
-                importe = $("#numImporte").val()*-1;
-            }
+            var confirmar = confirm("Se van a "+opcion+" "+importe+"€ ¿Quieres continuar?");
 
-            $.post("../banco/operaciones", {
-                numCuenta: $("#numCuenta").val(),
-                numImporte: importe,
-                descripcion: $("#descripcion").val(),
-                accion: "movimiento"
-            },
-                function(data, status) {
-                    $("#descripcion").val("");
-                    $("#numImporte").val("0");
-                    $("#rangoImporte").val("0");
-                    $("#contador").html("25"); 
-                    $("#info").html(data);
-                    $("#info").fadeIn(100, function(){
-                        setTimeout(function(){$("#info").fadeOut(100)}, 2000);
+            if(confirmar){
+                if(opcion=="retirar"){
+                    importe = $("#numImporte").val()*-1;
+                }
+
+                $.post("../banco/operaciones", {
+                    numCuenta: $("#numCuenta").val(),
+                    numImporte: importe,
+                    descripcion: $("#descripcion").val(),
+                    accion: "movimiento"
+                },
+                    function(data, status) {
+                        $("#descripcion").val("");
+                        $("#numImporte").val("0");
+                        $("#rangoImporte").val("0");
+                        $("#contador").html("25"); 
+                        $("#info").html(data);
+                        $("#info").fadeIn(100, function(){
+                            setTimeout(function(){$("#info").fadeOut(100)}, 2000);
+                        });
+
                     });
-                    
-                });
+            }
+        }else{
+            $("#errorImporte").html("El importe introducido no es correcto");
+            $("#errorImporte").fadeIn(100);
         }
     });
 });

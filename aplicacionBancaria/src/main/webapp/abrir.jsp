@@ -22,6 +22,10 @@
     </head>
 
     <body>
+        <div class="jumbotron">
+            <h1>Aplicación bancaria</h1>
+            <h4>La magia de Less</h4>
+        </div>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <div class="nav-item mr-auto">
                 <span style="cursor: default" class="navbar-brand">${emailUsuario}</span>
@@ -141,7 +145,7 @@
                         </table>
                         <span id="errorDatos" class="errorFormulario"></span>
                         <br>
-                        <button id="guardarDatos" class="btn btn-dark">Guardar</button>
+                        <button id="guardarDatos" class="btn btn-secondary">Guardar</button>
                     </div>
                     <div id="menu5" class="container tab-pane">
                         <h3>¿Quieres registrar un segundo titular?</h3>

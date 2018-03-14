@@ -22,6 +22,10 @@
     </head>
 
     <body>
+        <div class="jumbotron">
+            <h1>Aplicación bancaria</h1>
+            <h4>La magia de Less</h4>
+        </div>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <div class="nav-item mr-auto">
                 <span style="cursor: default" class="navbar-brand">${emailUsuario}</span>
@@ -53,7 +57,7 @@
                 <span id="errorCuenta" class="errorFormulario"></span>
                 <br>
                 <input type="text" id="numCuenta" placeholder="Número de cuenta">
-                <button id="comprobarCuenta" class="btn btn-dark">Comprobar</button>
+                <button id="comprobarCuenta" class="btn btn-secondary">Comprobar</button>
             </div>
             <div class="row tablas">
                 <div class="col-xl-12">

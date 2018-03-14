@@ -22,6 +22,10 @@
     </head>
 
     <body>
+        <div class="jumbotron">
+            <h1>Aplicación bancaria</h1>
+            <h4>La magia de Less</h4>
+        </div>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <div class="nav-item mr-auto">
                 <span style="cursor: default" class="navbar-brand">${emailUsuario}</span>
@@ -56,9 +60,11 @@
                     <input type="text" id="numCuenta" name="numCuenta">
                     <br>
                     <br>
+                    <span id="errorImporte" class="errorFormulario"></span>
+                    <br>
                     <lablel for="numImporte">Importe: </lablel>
-                    <input type="text" id="numImporte" name="numImporte" value="0" oninput="rangoImporte.value = numImporte.value">
-                    <input type="range" id="rangoImporte" name="rangoImporte" min="10" max="1000" step="10" value="0" oninput="numImporte.value = rangoImporte.value">
+                    <input type="text" id="numImporte" class="imp" name="numImporte" value="0" oninput="rangoImporte.value = numImporte.value">
+                    <input type="range" id="rangoImporte" class="imp" name="rangoImporte" min="10" max="1000" step="10" value="0" oninput="numImporte.value = rangoImporte.value">
                     <br>
                     <br>
                     <lablel for="descripcion">Descripción: </lablel>
